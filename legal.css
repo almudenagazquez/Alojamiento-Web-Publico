@@ -1,0 +1,21 @@
+@font-face { font-family: 'Fraunces'; src: url('fuentes/Fraunces.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: 'Work Sans'; src: url('fuentes/WorkSans.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('fuentes/IBMPlexMono-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: #EDE9E0; color: #141210; font-family: 'Work Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.65; }
+a { color: #5C1A28; }
+.cab { background: #141210; }
+.cab a { display: inline-flex; align-items: center; gap: 12px; color: #EDE9E0; text-decoration: none; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 14px; }
+.sello { width: 34px; height: 34px; border-radius: 2px; background: #EDE9E0; color: #5C1A28; display: inline-flex; align-items: center; justify-content: center; font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: 0; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 22px 24px; }
+main .wrap { padding-top: 56px; padding-bottom: 88px; }
+.label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #5C1A28; }
+h1 { font-size: 36px; line-height: 1.15; margin: 12px 0 8px; }
+h2 { font-size: 21px; margin: 40px 0 10px; padding-top: 20px; border-top: 1px solid rgba(20,18,16,0.14); }
+p, li { color: #3E3A33; }
+.fecha { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #6E675C; }
+.pendiente { background: #F3E3E6; color: #5C1A28; padding: 0 4px; }
+table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid rgba(20,18,16,0.14); margin: 12px 0; }
+th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid rgba(20,18,16,0.14); vertical-align: top; font-size: 15px; }
+th { width: 34%; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6E675C; }

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Almudena Gázquez · Implantación de IA en pymes</title>
+<meta name="description" content="Diez años dirigiendo proyectos estratégicos en una empresa industrial. Implantación de IA en pymes de 20 a 400 empleados. Diagnóstico gratuito de 1 hora.">
+<style>
+  /* Tipografías alojadas en la propia web: sin llamadas a terceros ni cookies */
+  @font-face { font-family: 'Fraunces'; src: url('fuentes/Fraunces.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: 'Work Sans'; src: url('fuentes/WorkSans.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('fuentes/IBMPlexMono-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+
+  :root {
+    --burdeos: #5C1A28;
+    --rosa: #D9A9B0;
+    --oliva: #565C34;
+    --tinta: #141210;
+    --hueso: #EDE9E0;
+    --papel: #F6F3EC;
+    --texto2: #4A453D;
+    --gris: #6E675C;
+    --linea: rgba(20, 18, 16, 0.14);
+    --linea-osc: rgba(237, 233, 224, 0.14);
+    --max: 1160px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--hueso); color: var(--tinta); font-family: 'Work Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .serif { font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: -0.015em; }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 500; }
+  .label { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+  h1, h2, h3 { margin: 0; }
+  h2 { font-family: 'Work Sans', sans-serif; font-weight: 600; font-size: 32px; line-height: 1.2; letter-spacing: -0.01em; }
+  p { margin: 0; }
+
+  /* Sello */
+  .sello { width: 40px; height: 40px; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 18px; flex-shrink: 0; }
+  .sello-claro { background: var(--burdeos); color: var(--hueso); }
+  .sello-osc { background: var(--hueso); color: var(--burdeos); }
+
+  /* Botones (el burdeos nunca sobre negro: en oscuro se invierte) */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 26px; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+  .btn-claro { background: var(--burdeos); color: var(--hueso); }
+  .btn-claro:hover { background: #4A1420; }
+  .btn-osc { background: var(--hueso); color: var(--burdeos); }
+  .btn-osc:hover { background: #fff; }
+
+  /* Cabecera + hero (banda oscura) */
+  .oscuro { background: var(--tinta); color: var(--hueso); }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--linea-osc); }
+  .marca { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .marca-nombre { font-weight: 600; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.2; }
+  .marca-servicio { font-size: 10px; color: #A39B8E; }
+  .nav-links { display: flex; gap: 32px; font-size: 15px; }
+  .nav-links a { text-decoration: none; color: #CFC8BA; }
+  .nav-links a:hover { color: var(--hueso); }
+
+  .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: end; padding-top: 72px; }
+  .hero-texto { padding-bottom: 80px; display: flex; flex-direction: column; gap: 28px; }
+  .hero h1 { font-size: 60px; line-height: 1.04; }
+  .hero h1 em { font-style: normal; color: var(--rosa); }
+  .hero-sub { font-size: 19px; color: #CFC8BA; max-width: 520px; }
+  .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+  .hero-nota { color: #A39B8E; font-size: 11px; }
+  .hero-foto { align-self: end; }
+  .hero-foto img { width: 100%; max-width: 440px; margin-left: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
+
+  /* Franja de cifras */
+  .cifras { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--linea-osc); }
+  .cifras > div { padding: 22px 0; border-right: 1px solid var(--linea-osc); padding-left: 24px; }
+  .cifras > div:first-child { padding-left: 0; }
+  .cifras > div:last-child { border-right: 0; }
+  .cifras .mono { font-size: 22px; color: var(--hueso); }
+  .cifras .txt { font-size: 13px; color: #A39B8E; }
+
+  /* Secciones claras */
+  section { padding: 104px 0; }
+  .alt { background: var(--papel); }
+  .cabecera { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; margin-bottom: 56px; align-items: end; }
+  .cabecera .label { color: var(--burdeos); margin-bottom: 14px; display: block; }
+  .cabecera p { color: var(--texto2); }
+
+  /* Síntomas */
+  .sintomas { border-top: 1px solid var(--tinta); }
+  .sintoma { display: grid; grid-template-columns: 140px 1fr 1fr; gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--linea); align-items: baseline; }
+  .sintoma .label { color: var(--gris); }
+  .sintoma h3 { font-size: 21px; font-weight: 600; line-height: 1.3; }
+  .sintoma p { color: var(--texto2); font-size: 16px; }
+
+  /* Ficha de caso */
+  .ficha { background: #fff; border: 1px solid var(--linea); }
+  .ficha-cab { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 24px 32px; border-bottom: 1px solid var(--linea); }
+  .ficha-cab .serif { font-size: 22px; }
+  .ficha-cab .label { color: var(--burdeos); }
+  .ficha-cifras { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--linea); }
+  .ficha-cifras > div { padding: 28px 32px; border-right: 1px solid var(--linea); }
+  .ficha-cifras > div:last-child { border-right: 0; }
+  .ficha-cifras .mono { font-size: 40px; line-height: 1.1; color: var(--burdeos); }
+  .ficha-cifras .txt { font-size: 14px; color: var(--gris); margin-top: 6px; }
+  .ficha-cuerpo { padding: 28px 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .ficha-cuerpo .label { color: var(--oliva); display: block; margin-bottom: 8px; }
+  .ficha-cuerpo p { font-size: 15.5px; color: var(--texto2); }
+
+  /* Proceso como informe */
+  .pasos { border-top: 1px solid var(--tinta); }
+  .paso { display: grid; grid-template-columns: 80px 260px 1fr 180px; gap: 32px; padding: 30px 0; border-bottom: 1px solid var(--linea); align-items: baseline; }
+  .paso .num { color: var(--burdeos); font-size: 15px; }
+  .paso h3 { font-size: 21px; font-weight: 600; }
+  .paso p { color: var(--texto2); font-size: 16px; }
+  .paso .dur { color: var(--gris); text-align: right; }
+
+  /* Diagnóstico 60 */
+  .diag { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .diag h2 { margin-bottom: 20px; }
+  .diag-intro p { color: var(--texto2); margin-bottom: 16px; }
+  .tabla { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--linea); }
+  .tabla th, .tabla td { text-align: left; padding: 18px 24px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+  .tabla th { width: 38%; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gris); }
+  .tabla td { font-size: 16px; }
+  .tabla td.mono { color: var(--burdeos); font-size: 17px; }
+  .tabla tr:last-child th, .tabla tr:last-child td { border-bottom: 0; }
+
+  /* Sobre mí */
+  .sobre { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: center; }
+  .sobre img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
+  .sobre .label { color: var(--burdeos); display: block; margin-bottom: 14px; }
+  .sobre h2 { margin-bottom: 22px; }
+  .sobre p { color: var(--texto2); margin-bottom: 16px; }
+  .principios { list-style: none; padding: 0; margin: 28px 0 0; border-top: 1px solid var(--linea); }
+  .principios li { padding: 14px 0; border-bottom: 1px solid var(--linea); display: flex; gap: 18px; font-size: 16px; }
+  .principios .mono { color: var(--oliva); font-size: 13px; padding-top: 2px; }
+  .sobre-izq { display: flex; flex-direction: column; }
+  .sobre-foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 18%; }
+  .trayectoria { background: var(--tinta); color: var(--hueso); padding: 8px 32px; }
+  .tray-fila { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 20px 0; border-bottom: 1px solid var(--linea-osc); }
+  .tray-fila:last-child { border-bottom: 0; }
+  .tray-fila .label { color: #A39B8E; font-size: 11px; }
+  .tray-fila .mono { font-size: 22px; }
+  .tray-fila .txt { font-size: 14px; color: #CFC8BA; }
+  .tray-grande { padding: 28px 0; }
+  .tray-grande .mono { font-size: 44px; line-height: 1.1; color: var(--rosa); }
+  .foto-pendiente { aspect-ratio: 4 / 5; border: 1px dashed rgba(92,26,40,0.45); background: #F3E3E6; color: var(--burdeos); display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 32px; font-size: 15px; }
+  .pendiente { background: #F3E3E6; color: var(--burdeos); padding: 0 4px; }
+
+  /* FAQ */
+  .faq { border-top: 1px solid var(--tinta); }
+  .faq details { border-bottom: 1px solid var(--linea); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 24px; padding: 24px 0; font-size: 18px; font-weight: 600; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: 'IBM Plex Mono', monospace; color: var(--burdeos); font-size: 22px; line-height: 1; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { padding: 0 0 24px; color: var(--texto2); max-width: 760px; }
+
+  /* CTA final */
+  .final { text-align: center; padding: 120px 0; }
+  .final .label { color: var(--rosa); display: block; margin-bottom: 20px; }
+  .final h2 { font-family: 'Fraunces', Georgia, serif; font-size: 48px; line-height: 1.1; margin-bottom: 20px; }
+  .final p { color: #CFC8BA; max-width: 560px; margin: 0 auto 36px; }
+
+  footer { border-top: 1px solid var(--linea-osc); padding: 32px 0 40px; font-size: 13px; color: #A39B8E; }
+  .pie { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: center; }
+  .pie nav { display: flex; flex-wrap: wrap; gap: 24px; }
+  .pie a { text-decoration: none; }
+  .pie a:hover { color: var(--hueso); }
+
+  /* Móvil */
+  @media (max-width: 900px) {
+    .wrap { padding: 0 20px; }
+    .nav-links { display: none; }
+    .nav .btn { padding: 0 16px; font-size: 11px; }
+    .hero { grid-template-columns: 1fr; gap: 0; padding-top: 44px; }
+    .hero-texto { padding-bottom: 40px; }
+    .hero h1 { font-size: 40px; }
+    .hero-foto img { max-width: 100%; margin: 0; aspect-ratio: 1 / 1; }
+    .cifras { grid-template-columns: 1fr 1fr; }
+    .cifras > div { padding: 18px 0 18px 16px; border-bottom: 1px solid var(--linea-osc); }
+    .cifras > div:nth-child(odd) { padding-left: 0; }
+    .cifras > div:nth-child(2) { border-right: 0; }
+    section { padding: 72px 0; }
+    h2 { font-size: 26px; }
+    .cabecera, .diag, .sobre { grid-template-columns: 1fr; gap: 28px; }
+    .sintoma { grid-template-columns: 1fr; gap: 8px; }
+    .ficha-cab { flex-direction: column; padding: 20px; }
+    .ficha-cifras { grid-template-columns: 1fr 1fr; }
+    .ficha-cifras > div { padding: 20px; border-bottom: 1px solid var(--linea); }
+    .ficha-cifras > div:nth-child(2) { border-right: 0; }
+    .ficha-cifras .mono { font-size: 30px; }
+    .ficha-cuerpo { grid-template-columns: 1fr; padding: 20px; gap: 20px; }
+    .paso { grid-template-columns: 48px 1fr; gap: 8px 16px; }
+    .paso p, .paso .dur { grid-column: 2; text-align: left; }
+    .tabla th, .tabla td { display: block; width: 100%; padding: 12px 18px; }
+    .tabla th { border-bottom: 0; padding-bottom: 0; }
+    .final h2 { font-size: 34px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="oscuro">
+  <div class="wrap">
+    <div class="nav">
+      <a class="marca" href="#">
+        <span class="sello sello-osc" aria-hidden="true">AG</span>
+        <span>
+          <span class="marca-nombre" style="display:block">Almudena Gázquez</span>
+          <span class="label marca-servicio" style="display:block">Tu Departamento de IA</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="#caso">Casos</a>
+        <a href="#proceso">Cómo trabajo</a>
+        <a href="#sobre">Sobre mí</a>
+        <a href="#faq">Preguntas</a>
+      </nav>
+      <a class="btn btn-osc" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1m0qbvYcX8dofOMor7GPaOoAc6NFHuTUkyz84vbSYM55Es2JlJJUgvuxlFHaEkUIJ9T5wqjoNN" target="_blank" rel="noopener">Reservar →</a>
+    </div>
+
+    <div class="hero">
+      <div class="hero-texto">
+        <span class="label" style="color:var(--rosa)">Implantación de IA en pymes de 20 a 400 empleados</span>
+        <h1 class="serif">Tu empresa no escala porque <em>depende de ti.</em></h1>
+        <p class="hero-sub">Diez años dirigiendo proyectos estratégicos en una empresa industrial. Ahora ayudo a pymes a desatascar sus procesos con IA, junto a su equipo y sin cambiar su ERP.</p>
+        <div class="hero-cta">
+          <a class="btn btn-osc" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1m0qbvYcX8dofOMor7GPaOoAc6NFHuTUkyz84vbSYM55Es2JlJJUgvuxlFHaEkUIJ9T5wqjoNN" target="_blank" rel="noopener">Reservar Diagnóstico 60 →</a>
+          <span class="label hero-nota">1 hora · gratuito · sin compromiso</span>
+        </div>
+      </div>
+      <div class="hero-foto">
+        <img src="img/almudena.jpg" alt="Almudena Gázquez" width="544" height="680">
+      </div>
+    </div>
+
+    <div class="cifras">
+      <div><div class="mono">100 H/MES</div><div class="txt">recuperadas en el caso 01</div></div>
+      <div><div class="mono">1 MES</div><div class="txt">de implantación</div></div>
+      <div><div class="mono">0 DESPIDOS</div><div class="txt">el equipo se queda y crece</div></div>
+      <div><div class="mono">20–400</div><div class="txt">empleados, cualquier sector</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="sintomas">
+    <div class="wrap">
+      <div class="cabecera">
+        <div>
+          <span class="label">El cuello de botella</span>
+          <h2>Si te reconoces en dos de estas, el problema no es la tecnología.</h2>
+        </div>
+        <p>Es cómo está montado el trabajo. Antes de implantar nada, medimos dónde se va el tiempo. Lo que no se pueda medir, no se automatiza.</p>
+      </div>
+      <div class="sintomas">
+        <div class="sintoma">
+          <span class="label">Síntoma 01</span>
+          <h3>Si te vas dos semanas, ¿qué se para?</h3>
+          <p>Las decisiones, las aprobaciones y las dudas pasan por tu mesa. Tu agenda marca el ritmo de toda la empresa.</p>
+        </div>
+        <div class="sintoma">
+          <span class="label">Síntoma 02</span>
+          <h3>Todo pasa por la persona que más sabe.</h3>
+          <p>No siempre eres tú. En finanzas, en compras o en producción, los nuevos esperan a que la misma persona les resuelva cada paso.</p>
+        </div>
+        <div class="sintoma">
+          <span class="label">Síntoma 03</span>
+          <h3>Los errores se descubren tarde.</h3>
+          <p>Cuando alguien se da cuenta, el pedido ya salió, la factura ya se envió o el cliente ya se quejó.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="caso" class="alt">
+    <div class="wrap">
+      <div class="cabecera">
+        <div>
+          <span class="label">Casos</span>
+          <h2>Cifras que puedo defender delante de ti.</h2>
+        </div>
+        <p>Cada caso sigue la misma ficha: qué pasaba, qué hicimos y qué no tocamos.</p>
+      </div>
+      <article class="ficha">
+        <div class="ficha-cab">
+          <span class="serif">Empresa industrial · 180 empleados</span>
+          <span class="label">Caso 01 · Operaciones</span>
+        </div>
+        <div class="ficha-cifras">
+          <div><div class="mono">100 h</div><div class="txt">recuperadas al mes</div></div>
+          <div><div class="mono">1 mes</div><div class="txt">de implantación</div></div>
+          <div><div class="mono">4</div><div class="txt">procesos intervenidos</div></div>
+          <div><div class="mono">0</div><div class="txt">despidos</div></div>
+        </div>
+        <div class="ficha-cuerpo">
+          <div><span class="label">Síntoma</span><p>Personas clave dedicaban las mañanas a pasar documentos a mano, con dependencia de un proveedor externo y errores que se detectaban tarde.</p></div>
+          <div><span class="label">Intervención</span><p>Recepción, validación y procesamiento automáticos, con trazabilidad y alertas. El equipo pasó a revisar excepciones en lugar de teclear.</p></div>
+          <div><span class="label">Lo que no se tocó</span><p>Ni el ERP, ni la plantilla.</p></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="proceso">
+    <div class="wrap">
+      <div class="cabecera">
+        <div>
+          <span class="label">Cómo trabajo</span>
+          <h2>El diagnóstico decide el plan, no una tarifa cerrada.</h2>
+        </div>
+        <p>Ventas, administración, operaciones o atención al cliente: dónde intervenir no se decide aquí, se diagnostica contigo.</p>
+      </div>
+      <div class="pasos">
+        <div class="paso">
+          <span class="mono num">01</span>
+          <h3>Diagnóstico 60</h3>
+          <p>Una hora con guion fijo para encontrar los cuellos de botella con más impacto real.</p>
+          <span class="label dur">60 min · gratis</span>
+        </div>
+        <div class="paso">
+          <span class="mono num">02</span>
+          <h3>Plan y presupuesto</h3>
+          <p>Qué se automatiza, en qué orden y qué horas o euros esperamos recuperar en cada paso.</p>
+          <span class="label dur">2.ª reunión</span>
+        </div>
+        <div class="paso">
+          <span class="mono num">03</span>
+          <h3>Implantación con tu equipo</h3>
+          <p>Se forma a las personas que ya tienes. El objetivo es potenciarlas, nunca sustituirlas.</p>
+          <span class="label dur">según el plan</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reservar" class="alt">
+    <div class="wrap">
+      <div class="diag">
+        <div class="diag-intro">
+          <span class="label" style="color:var(--burdeos);display:block;margin-bottom:14px">La puerta de entrada</span>
+          <h2>Diagnóstico 60: gratuito no significa informal.</h2>
+          <p>Una hora con hora de inicio y de fin, un guion de preguntas fijo y un resumen escrito al terminar. Es el tiempo que hace falta para sacar todos los cuellos de botella sin tener que volver a preguntarte.</p>
+          <p>De ahí sale el presupuesto de la segunda reunión. Si no veo claro el retorno en tu caso, te lo digo en esa misma llamada.</p>
+          <p style="margin-top:28px"><a class="btn btn-claro" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1m0qbvYcX8dofOMor7GPaOoAc6NFHuTUkyz84vbSYM55Es2JlJJUgvuxlFHaEkUIJ9T5wqjoNN" target="_blank" rel="noopener">Elegir día y hora →</a></p>
+        </div>
+        <table class="tabla">
+          <tr><th scope="row">Duración</th><td class="mono">60 MIN</td></tr>
+          <tr><th scope="row">Precio</th><td class="mono">0 €</td></tr>
+          <tr><th scope="row">Formato</th><td>Videollamada</td></tr>
+          <tr><th scope="row">Para quién</th><td>Dirección de empresas de 20 a 400 empleados</td></tr>
+          <tr><th scope="row">Te llevas</th><td>Resumen escrito con los cuellos de botella detectados y su impacto estimado</td></tr>
+          <tr><th scope="row">Horario</th><td>Lunes a jueves, de 10:00 a 13:00 y de 16:00 a 19:00</td></tr>
+          <tr><th scope="row">Grabación</th><td>Con tu permiso, para preparar tu resumen</td></tr>
+          <tr><th scope="row">Compromiso</th><td>Ninguno</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="wrap">
+      <div class="sobre">
+        <div class="sobre-izq">
+        <img class="sobre-foto" src="img/almudena.jpg" alt="Almudena Gázquez" width="544" height="680" loading="lazy">
+        <div class="trayectoria">
+          <div class="tray-fila tray-grande">
+            <span class="label">Crecimiento de la empresa en esos 10 años</span>
+            <span class="mono">×2,4</span>
+            <span class="txt">la empresa multiplicó por 2,4 su facturación, logro de toda la organización</span>
+          </div>
+          <div class="tray-fila"><span class="label">Mi papel</span><span class="mono">PROYECTOS Y ESTRATEGIA</span><span class="txt">dirección de proyectos y desarrollo estratégico de negocio, dentro del equipo de gerencia</span></div>
+          <div class="tray-fila"><span class="label">Proyectos</span><span class="mono">ERP · MAQUINARIA · IA</span><span class="txt">cada uno con su equipo, interno y externo</span></div>
+          <div class="tray-fila"><span class="label">Cómo</span><span class="mono">SIEMPRE EN EQUIPO</span><span class="txt">la plantilla y los colaboradores ejecutaron, confiaron y lo hicieron funcionar</span></div>
+        </div>
+        </div>
+        <div>
+          <span class="label">Sobre mí</span>
+          <h2>Diez años convirtiendo los objetivos de una empresa industrial en proyectos que funcionan.</h2>
+          <p>Fui directora de proyectos y desarrollo estratégico de negocio en una empresa industrial, dentro del equipo de gerencia. Mi papel era traducir hacia dónde quería ir la dirección en proyectos concretos, ordenados por fases, para que cada paso del presente acercara a la empresa a sus metas.</p>
+          <p>Así llegaron la implantación del ERP, una nueva línea de maquinaria para fabricar lo que antes se compraba y, por último, la IA en los departamentos donde el trabajo se atascaba. Ninguno fue un logro individual: detrás de cada proyecto hubo un equipo extraordinario, de la propia plantilla y de colaboradores externos, que confió, ejecutó y lo hizo funcionar.</p>
+          <p>Eso es lo que llevo a tu empresa: método para convertir tus objetivos en proyectos, y respeto por las personas que los hacen realidad.</p>
+          <ul class="principios">
+            <li><span class="mono">01</span><span>El cuello de botella no siempre es el jefe: a veces es la persona que más sabe de un departamento.</span></li>
+            <li><span class="mono">02</span><span>Primero se mide, después se automatiza.</span></li>
+            <li><span class="mono">03</span><span>La IA potencia a tu equipo, no lo sustituye.</span></li>
+            <li><span class="mono">04</span><span>Un proyecto está terminado cuando tu equipo lo lleva solo.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="alt">
+    <div class="wrap">
+      <div class="cabecera">
+        <div>
+          <span class="label">Preguntas</span>
+          <h2>Antes de reservar.</h2>
+        </div>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>¿Necesito tener un equipo técnico?</summary>
+          <p>No. Trabajo con las personas y las herramientas que ya tienes. Si hace falta algo técnico, lo resuelvo yo.</p>
+        </details>
+        <details>
+          <summary>¿Cuánto cuesta la implantación?</summary>
+          <p>Depende de los procesos que se intervengan. Tras el Diagnóstico 60 recibes un presupuesto cerrado en la segunda reunión.</p>
+        </details>
+        <details>
+          <summary>¿Cuánto tarda en notarse?</summary>
+          <p>En el diagnóstico te doy una estimación por proceso. Como referencia, en el caso 01 la implantación duró un mes.</p>
+        </details>
+        <details>
+          <summary>¿Qué pasa con mis datos y los de mis clientes?</summary>
+          <p>Se tratan conforme al RGPD y se decide contigo qué herramientas pueden acceder a cada dato antes de implantar nada.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="oscuro">
+  <section class="final">
+    <div class="wrap">
+      <span class="label">Diagnóstico gratuito de 1 hora</span>
+      <h2>¿Qué se para si te vas dos semanas?</h2>
+      <p>En una hora lo sabemos. Sin coste y sin compromiso.</p>
+      <a class="btn btn-osc" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1m0qbvYcX8dofOMor7GPaOoAc6NFHuTUkyz84vbSYM55Es2JlJJUgvuxlFHaEkUIJ9T5wqjoNN" target="_blank" rel="noopener">Reservar Diagnóstico 60 →</a>
+    </div>
+  </section>
+  <div class="wrap">
+    <div class="pie">
+      <a class="marca" href="#">
+        <span class="sello sello-osc" aria-hidden="true" style="width:28px;height:28px;font-size:13px">AG</span>
+        <span>Almudena Gázquez · Tu Departamento de IA</span>
+      </a>
+      <nav aria-label="Legal y contacto">
+        <a href="mailto:ag@almudenagazquez.com">ag@almudenagazquez.com</a>
+        <a href="https://www.instagram.com/almudena.gazquez.ai/">Instagram</a>
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="cookies.html">Cookies</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
