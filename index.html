@@ -202,19 +202,28 @@
     .tabla th { border-bottom: 0; padding-bottom: 0; }
     .final h2 { font-size: 34px; }
   }
-  /* Acordeón solo en móvil (síntomas y ficha del caso). En escritorio no cambia nada; sin JS se ve todo abierto. */
+  /* Acordeón solo en móvil (síntomas y ficha del caso), con <details> nativo: funciona en cualquier navegador y sin JavaScript. En escritorio no se ve. */
+  .sintomas-movil, .ficha-cuerpo-movil { display: none; }
+  .acordeon summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; -webkit-tap-highlight-color: transparent; }
+  .acordeon summary::-webkit-details-marker { display: none; }
+  .acordeon summary::marker { content: ""; }
+  .acordeon summary::after { content: "+"; font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--burdeos); font-size: 24px; line-height: 1; flex-shrink: 0; }
+  .acordeon[open] summary::after { content: "–"; }
+  .sintomas-movil { border-top: 1px solid var(--tinta); }
+  .sintomas-movil .acordeon { border-bottom: 1px solid var(--linea); }
+  .sintomas-movil summary { padding: 22px 0; }
+  .sintomas-movil summary .label { display: block; color: var(--gris); margin-bottom: 6px; }
+  .sintomas-movil .acordeon-h { display: block; font-size: 20px; font-weight: 600; line-height: 1.3; }
+  .sintomas-movil .acordeon p { color: var(--texto2); font-size: 16px; padding: 0 0 22px; }
+  .ficha-cuerpo-movil { padding: 4px 20px; }
+  .ficha-cuerpo-movil .acordeon { border-bottom: 1px solid var(--linea); }
+  .ficha-cuerpo-movil .acordeon:last-child { border-bottom: 0; }
+  .ficha-cuerpo-movil summary { padding: 16px 0; }
+  .ficha-cuerpo-movil summary .label { color: var(--oliva); }
+  .ficha-cuerpo-movil .acordeon p { font-size: 15.5px; color: var(--texto2); padding: 0 0 16px; }
   @media (max-width: 900px) {
-    .js .acordeon-item .acordeon-tit { cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-    .js .acordeon-item .acordeon-tit::after { content: "+"; font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--burdeos); font-size: 22px; line-height: 1; letter-spacing: 0; }
-    .js .acordeon-item.abierto .acordeon-tit::after { content: "–"; }
-    .js .acordeon-item .acordeon-cuerpo { display: none; }
-    .js .acordeon-item.abierto .acordeon-cuerpo { display: block; }
-    .js .acordeon-item .acordeon-tit, .js .acordeon-item > .label { cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
-    .js .ficha-cuerpo { gap: 0; }
-    .js .ficha-cuerpo .acordeon-item { padding: 14px 0; border-bottom: 1px solid var(--linea); }
-    .js .ficha-cuerpo .acordeon-item:last-child { border-bottom: 0; }
-    .js .ficha-cuerpo .acordeon-item .label { margin-bottom: 0; }
-    .js .ficha-cuerpo .acordeon-item.abierto .label { margin-bottom: 8px; }
+    .sintomas, .ficha-cuerpo { display: none; }
+    .sintomas-movil, .ficha-cuerpo-movil { display: block; }
   }
 </style>
 </head>
@@ -275,21 +284,35 @@
         <p>Es cómo está montado el trabajo. Antes de implantar nada, medimos dónde están los cuellos de botella que te hacen perder tiempo y dinero. Lo que no se pueda medir, no se automatiza.</p>
       </div>
       <div class="sintomas">
-        <div class="sintoma acordeon-item">
+        <div class="sintoma">
           <span class="label">Síntoma 01</span>
-          <h3 class="acordeon-tit">Si te vas dos semanas, ¿qué se para?</h3>
-          <p class="acordeon-cuerpo">Las decisiones, las aprobaciones y las dudas pasan por tu mesa. Tu agenda marca el ritmo de toda la empresa.</p>
+          <h3>Si te vas dos semanas, ¿qué se para?</h3>
+          <p>Las decisiones, las aprobaciones y las dudas pasan por tu mesa. Tu agenda marca el ritmo de toda la empresa.</p>
         </div>
-        <div class="sintoma acordeon-item">
+        <div class="sintoma">
           <span class="label">Síntoma 02</span>
-          <h3 class="acordeon-tit">Todo pasa por la persona que más sabe.</h3>
-          <p class="acordeon-cuerpo">No siempre eres tú. En finanzas, en compras o en producción, los nuevos esperan a que la misma persona les resuelva cada paso.</p>
+          <h3>Todo pasa por la persona que más sabe.</h3>
+          <p>No siempre eres tú. En finanzas, en compras o en producción, los nuevos esperan a que la misma persona les resuelva cada paso.</p>
         </div>
-        <div class="sintoma acordeon-item">
+        <div class="sintoma">
           <span class="label">Síntoma 03</span>
-          <h3 class="acordeon-tit">Los errores se descubren tarde.</h3>
-          <p class="acordeon-cuerpo">Cuando alguien se da cuenta, el pedido ya salió, la factura ya se envió o el cliente ya se quejó.</p>
+          <h3>Los errores se descubren tarde.</h3>
+          <p>Cuando alguien se da cuenta, el pedido ya salió, la factura ya se envió o el cliente ya se quejó.</p>
         </div>
+      </div>
+      <div class="sintomas-movil">
+        <details class="acordeon">
+          <summary><span><span class="label">Síntoma 01</span><span class="acordeon-h">Si te vas dos semanas, ¿qué se para?</span></span></summary>
+          <p>Las decisiones, las aprobaciones y las dudas pasan por tu mesa. Tu agenda marca el ritmo de toda la empresa.</p>
+        </details>
+        <details class="acordeon">
+          <summary><span><span class="label">Síntoma 02</span><span class="acordeon-h">Todo pasa por la persona que más sabe.</span></span></summary>
+          <p>No siempre eres tú. En finanzas, en compras o en producción, los nuevos esperan a que la misma persona les resuelva cada paso.</p>
+        </details>
+        <details class="acordeon">
+          <summary><span><span class="label">Síntoma 03</span><span class="acordeon-h">Los errores se descubren tarde.</span></span></summary>
+          <p>Cuando alguien se da cuenta, el pedido ya salió, la factura ya se envió o el cliente ya se quejó.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -315,9 +338,23 @@
           <div><div class="mono">0</div><div class="txt">despidos</div></div>
         </div>
         <div class="ficha-cuerpo">
-          <div class="acordeon-item"><span class="label acordeon-tit">Síntoma</span><p class="acordeon-cuerpo">Personas clave dedicaban su jornada a apagar fuegos, atender el teléfono, realizar tareas repetitivas y solucionar problemas y errores que se detectaban tarde.</p></div>
-          <div class="acordeon-item"><span class="label acordeon-tit">Intervención</span><p class="acordeon-cuerpo">Recepción, validación y procesamiento automáticos, con trazabilidad y alertas. El equipo pasó a revisar excepciones en vez de ejecutar tareas: menos operativa, más criterio.</p></div>
-          <div class="acordeon-item"><span class="label acordeon-tit">Lo que no se tocó</span><p class="acordeon-cuerpo">Ni el ERP, ni la plantilla.</p></div>
+          <div><span class="label">Síntoma</span><p>Personas clave dedicaban su jornada a apagar fuegos, atender el teléfono, realizar tareas repetitivas y solucionar problemas y errores que se detectaban tarde.</p></div>
+          <div><span class="label">Intervención</span><p>Recepción, validación y procesamiento automáticos, con trazabilidad y alertas. El equipo pasó a revisar excepciones en vez de ejecutar tareas: menos operativa, más criterio.</p></div>
+          <div><span class="label">Lo que no se tocó</span><p>Ni el ERP, ni la plantilla.</p></div>
+        </div>
+        <div class="ficha-cuerpo-movil">
+          <details class="acordeon">
+            <summary><span class="label">Síntoma</span></summary>
+            <p>Personas clave dedicaban su jornada a apagar fuegos, atender el teléfono, realizar tareas repetitivas y solucionar problemas y errores que se detectaban tarde.</p>
+          </details>
+          <details class="acordeon">
+            <summary><span class="label">Intervención</span></summary>
+            <p>Recepción, validación y procesamiento automáticos, con trazabilidad y alertas. El equipo pasó a revisar excepciones en vez de ejecutar tareas: menos operativa, más criterio.</p>
+          </details>
+          <details class="acordeon">
+            <summary><span class="label">Lo que no se tocó</span></summary>
+            <p>Ni el ERP, ni la plantilla.</p>
+          </details>
         </div>
       </article>
     </div>
@@ -465,36 +502,5 @@
   </div>
 </footer>
 
-<script>
-  (function () {
-    document.documentElement.classList.add('js');
-    var movil = window.matchMedia('(max-width: 900px)');
-    var items = document.querySelectorAll('.acordeon-item');
-    function preparar() {
-      items.forEach(function (it) {
-        var t = it.querySelector('.acordeon-tit');
-        if (movil.matches) { t.setAttribute('role', 'button'); t.setAttribute('tabindex', '0'); t.setAttribute('aria-expanded', it.classList.contains('abierto')); }
-        else { t.removeAttribute('role'); t.removeAttribute('tabindex'); t.removeAttribute('aria-expanded'); }
-      });
-    }
-    items.forEach(function (it) {
-      var t = it.querySelector('.acordeon-tit');
-      function alternar(e) {
-        if (!movil.matches) return;
-        if (e) e.preventDefault();
-        var a = it.classList.toggle('abierto');
-        t.setAttribute('aria-expanded', a ? 'true' : 'false');
-      }
-      // Escucha directamente en el título (y en la etiqueta «Síntoma 0X»): en Safari de iPhone los toques en un div genérico no siempre llegan.
-      var cabeceras = [t];
-      var etiqueta = it.querySelector(':scope > .label');
-      if (etiqueta && etiqueta !== t) cabeceras.push(etiqueta);
-      cabeceras.forEach(function (c) { c.addEventListener('click', alternar); });
-      t.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') alternar(e); });
-    });
-    preparar();
-    if (movil.addEventListener) movil.addEventListener('change', preparar);
-  })();
-</script>
 </body>
 </html>
