@@ -202,6 +202,20 @@
     .tabla th { border-bottom: 0; padding-bottom: 0; }
     .final h2 { font-size: 34px; }
   }
+  /* Acordeón solo en móvil (síntomas y ficha del caso). En escritorio no cambia nada; sin JS se ve todo abierto. */
+  @media (max-width: 900px) {
+    .js .acordeon-item .acordeon-tit { cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+    .js .acordeon-item .acordeon-tit::after { content: "+"; font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--burdeos); font-size: 22px; line-height: 1; letter-spacing: 0; }
+    .js .acordeon-item.abierto .acordeon-tit::after { content: "–"; }
+    .js .acordeon-item .acordeon-cuerpo { display: none; }
+    .js .acordeon-item.abierto .acordeon-cuerpo { display: block; }
+    .js .sintoma.acordeon-item { cursor: pointer; }
+    .js .ficha-cuerpo { gap: 0; }
+    .js .ficha-cuerpo .acordeon-item { padding: 14px 0; border-bottom: 1px solid var(--linea); }
+    .js .ficha-cuerpo .acordeon-item:last-child { border-bottom: 0; }
+    .js .ficha-cuerpo .acordeon-item .label { margin-bottom: 0; }
+    .js .ficha-cuerpo .acordeon-item.abierto .label { margin-bottom: 8px; }
+  }
 </style>
 </head>
 <body>
@@ -241,7 +255,7 @@
     </div>
 
     <div class="cifras">
-      <div><div class="mono">100 H/MES</div><div class="txt">recuperadas en el caso 01</div></div>
+      <div><div class="mono">100 H/MES</div><div class="txt">recuperadas de media</div></div>
       <div><div class="mono">1 MES</div><div class="txt">de implantación</div></div>
       <div><div class="mono">0 DESPIDOS</div><div class="txt">el equipo se queda y crece</div></div>
       <div><div class="mono">20–400</div><div class="txt">empleados, cualquier sector</div></div>
@@ -256,25 +270,25 @@
       <div class="cabecera">
         <div>
           <span class="label">El cuello de botella</span>
-          <h2>Si te reconoces en dos de estas, el problema no es la tecnología.</h2>
+          <h2>Si te reconoces en dos de estos síntomas, el problema no es la tecnología.</h2>
         </div>
         <p>Es cómo está montado el trabajo. Antes de implantar nada, medimos dónde están los cuellos de botella que te hacen perder tiempo y dinero. Lo que no se pueda medir, no se automatiza.</p>
       </div>
       <div class="sintomas">
-        <div class="sintoma">
+        <div class="sintoma acordeon-item">
           <span class="label">Síntoma 01</span>
-          <h3>Si te vas dos semanas, ¿qué se para?</h3>
-          <p>Las decisiones, las aprobaciones y las dudas pasan por tu mesa. Tu agenda marca el ritmo de toda la empresa.</p>
+          <h3 class="acordeon-tit">Si te vas dos semanas, ¿qué se para?</h3>
+          <p class="acordeon-cuerpo">Las decisiones, las aprobaciones y las dudas pasan por tu mesa. Tu agenda marca el ritmo de toda la empresa.</p>
         </div>
-        <div class="sintoma">
+        <div class="sintoma acordeon-item">
           <span class="label">Síntoma 02</span>
-          <h3>Todo pasa por la persona que más sabe.</h3>
-          <p>No siempre eres tú. En finanzas, en compras o en producción, los nuevos esperan a que la misma persona les resuelva cada paso.</p>
+          <h3 class="acordeon-tit">Todo pasa por la persona que más sabe.</h3>
+          <p class="acordeon-cuerpo">No siempre eres tú. En finanzas, en compras o en producción, los nuevos esperan a que la misma persona les resuelva cada paso.</p>
         </div>
-        <div class="sintoma">
+        <div class="sintoma acordeon-item">
           <span class="label">Síntoma 03</span>
-          <h3>Los errores se descubren tarde.</h3>
-          <p>Cuando alguien se da cuenta, el pedido ya salió, la factura ya se envió o el cliente ya se quejó.</p>
+          <h3 class="acordeon-tit">Los errores se descubren tarde.</h3>
+          <p class="acordeon-cuerpo">Cuando alguien se da cuenta, el pedido ya salió, la factura ya se envió o el cliente ya se quejó.</p>
         </div>
       </div>
     </div>
@@ -301,9 +315,9 @@
           <div><div class="mono">0</div><div class="txt">despidos</div></div>
         </div>
         <div class="ficha-cuerpo">
-          <div><span class="label">Síntoma</span><p>Personas clave dedicaban su jornada a apagar fuegos, atender el teléfono, realizar tareas repetitivas y solucionar problemas y errores que se detectaban tarde.</p></div>
-          <div><span class="label">Intervención</span><p>Recepción, validación y procesamiento automáticos, con trazabilidad y alertas. El equipo pasó a revisar excepciones en lugar de teclear.</p></div>
-          <div><span class="label">Lo que no se tocó</span><p>Ni el ERP, ni la plantilla.</p></div>
+          <div class="acordeon-item"><span class="label acordeon-tit">Síntoma</span><p class="acordeon-cuerpo">Personas clave dedicaban su jornada a apagar fuegos, atender el teléfono, realizar tareas repetitivas y solucionar problemas y errores que se detectaban tarde.</p></div>
+          <div class="acordeon-item"><span class="label acordeon-tit">Intervención</span><p class="acordeon-cuerpo">Recepción, validación y procesamiento automáticos, con trazabilidad y alertas. El equipo pasó a revisar excepciones en vez de ejecutar tareas: menos operativa, más criterio.</p></div>
+          <div class="acordeon-item"><span class="label acordeon-tit">Lo que no se tocó</span><p class="acordeon-cuerpo">Ni el ERP, ni la plantilla.</p></div>
         </div>
       </article>
     </div>
@@ -359,7 +373,7 @@
           <tr><th scope="row">Te llevas</th><td>Resumen escrito con los cuellos de botella detectados y su impacto estimado</td></tr>
           <tr><th scope="row">Horario</th><td>Lunes a jueves, de 10:00 a 13:00 y de 16:00 a 19:00</td></tr>
           <tr><th scope="row">Grabación</th><td>Con tu permiso, para preparar tu resumen</td></tr>
-          <tr><th scope="row">Compromiso</th><td>Conmigo, ninguno. Con tu empresa, depende del dinero que sigas dejando escapar.</td></tr>
+          <tr><th scope="row">Compromiso</th><td>El mío es cerrar la fuga. El tuyo, decidir cuándo empezamos.</td></tr>
         </table>
       </div>
     </div>
@@ -371,14 +385,9 @@
         <div class="sobre-izq">
         <img class="sobre-foto" src="img/almudena-sobre-mi.jpg" alt="Almudena Gázquez" width="544" height="680" loading="lazy">
         <div class="trayectoria">
-          <div class="tray-fila tray-grande">
-            <span class="label">Crecimiento de la empresa en esos 10 años</span>
-            <span class="mono">×2,4</span>
-            <span class="txt">la empresa multiplicó por 2,4 su facturación, logro de toda la organización</span>
-          </div>
-          <div class="tray-fila"><span class="label">Mi papel</span><span class="mono">PROYECTOS Y ESTRATEGIA</span><span class="txt">dirección de proyectos y desarrollo estratégico de negocio, dentro del equipo de gerencia</span></div>
-          <div class="tray-fila"><span class="label">Proyectos</span><span class="mono">TRANSFORMACIÓN POR ÁREAS</span><span class="txt">Cada proyecto aporta valor al conjunto de tu empresa.</span></div>
-          <div class="tray-fila"><span class="label">Cómo</span><span class="mono">SIEMPRE EN EQUIPO</span><span class="txt">la plantilla y los colaboradores ejecutaron, confiaron y lo hicieron funcionar</span></div>
+          <div class="tray-fila"><span class="label">Mi papel</span><span class="txt">Convertir lo que me cuentas en la reunión de onboarding en un plan de acción con implementaciones de IA que solucionen tus problemas de forma rápida y sencilla.</span></div>
+          <div class="tray-fila"><span class="label">Proyectos</span><span class="mono">TRANSFORMACIÓN POR ÁREAS</span><span class="txt">Tú nos señalas dónde se atasca tu equipo; nosotros lo convertimos en automatizaciones con impacto medible, área por área.</span></div>
+          <div class="tray-fila"><span class="label">Cómo</span><span class="mono">SIEMPRE EN EQUIPO</span><span class="txt">La plantilla y los colaboradores ejecutaron, confiaron y lo hicieron funcionar.</span></div>
         </div>
         </div>
         <div>
@@ -456,5 +465,27 @@
   </div>
 </footer>
 
+<script>
+  (function () {
+    document.documentElement.classList.add('js');
+    var movil = window.matchMedia('(max-width: 900px)');
+    var items = document.querySelectorAll('.acordeon-item');
+    function preparar() {
+      items.forEach(function (it) {
+        var t = it.querySelector('.acordeon-tit');
+        if (movil.matches) { t.setAttribute('role', 'button'); t.setAttribute('tabindex', '0'); t.setAttribute('aria-expanded', it.classList.contains('abierto')); }
+        else { t.removeAttribute('role'); t.removeAttribute('tabindex'); t.removeAttribute('aria-expanded'); }
+      });
+    }
+    items.forEach(function (it) {
+      var t = it.querySelector('.acordeon-tit');
+      function alternar() { if (!movil.matches) return; var a = it.classList.toggle('abierto'); t.setAttribute('aria-expanded', a); }
+      it.addEventListener('click', function (e) { if (!e.target.closest('.acordeon-cuerpo')) alternar(); });
+      t.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alternar(); } });
+    });
+    preparar();
+    if (movil.addEventListener) movil.addEventListener('change', preparar);
+  })();
+</script>
 </body>
 </html>
