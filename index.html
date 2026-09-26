@@ -209,7 +209,7 @@
     .js .acordeon-item.abierto .acordeon-tit::after { content: "–"; }
     .js .acordeon-item .acordeon-cuerpo { display: none; }
     .js .acordeon-item.abierto .acordeon-cuerpo { display: block; }
-    .js .sintoma.acordeon-item { cursor: pointer; }
+    .js .acordeon-item .acordeon-tit, .js .acordeon-item > .label { cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
     .js .ficha-cuerpo { gap: 0; }
     .js .ficha-cuerpo .acordeon-item { padding: 14px 0; border-bottom: 1px solid var(--linea); }
     .js .ficha-cuerpo .acordeon-item:last-child { border-bottom: 0; }
@@ -479,9 +479,18 @@
     }
     items.forEach(function (it) {
       var t = it.querySelector('.acordeon-tit');
-      function alternar() { if (!movil.matches) return; var a = it.classList.toggle('abierto'); t.setAttribute('aria-expanded', a); }
-      it.addEventListener('click', function (e) { if (!e.target.closest('.acordeon-cuerpo')) alternar(); });
-      t.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alternar(); } });
+      function alternar(e) {
+        if (!movil.matches) return;
+        if (e) e.preventDefault();
+        var a = it.classList.toggle('abierto');
+        t.setAttribute('aria-expanded', a ? 'true' : 'false');
+      }
+      // Escucha directamente en el título (y en la etiqueta «Síntoma 0X»): en Safari de iPhone los toques en un div genérico no siempre llegan.
+      var cabeceras = [t];
+      var etiqueta = it.querySelector(':scope > .label');
+      if (etiqueta && etiqueta !== t) cabeceras.push(etiqueta);
+      cabeceras.forEach(function (c) { c.addEventListener('click', alternar); });
+      t.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') alternar(e); });
     });
     preparar();
     if (movil.addEventListener) movil.addEventListener('change', preparar);
