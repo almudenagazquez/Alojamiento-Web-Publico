@@ -1,9 +1,9 @@
-# Almudena Gázquez · Tu Departamento de IA
+# Almudena Gázquez · IA para empresas
 
-> Consultora de implantación de IA en pymes de 20 a 400 empleados, de cualquier sector. Ayuda a empresas a detectar sus cuellos de botella operativos y a automatizar esos procesos con IA, junto a su equipo actual, sin sustituir personal ni cambiar los sistemas informáticos que ya usan.
+> Consultora de implantación de IA en empresas de 20 a 400 empleados, de cualquier sector. Ayuda a empresas a detectar sus cuellos de botella operativos y a automatizar esos procesos con IA, junto a su equipo actual, sin sustituir personal ni cambiar los sistemas informáticos que ya usan.
 
 ## Quién es
-Diez años como directora de proyectos y desarrollo estratégico de negocio en una empresa industrial, dentro del equipo de gerencia. Ahora aplica ese mismo método a la implantación de IA en pymes.
+Diez años como directora de proyectos y desarrollo estratégico de negocio en una empresa industrial, dentro del equipo de gerencia. Ahora aplica ese mismo método a la implantación de IA en empresas.
 
 ## Servicio
 - Punto de entrada: Diagnóstico 60, una llamada de 1 hora, gratuita, con guion fijo y resumen escrito al terminar.
@@ -22,4 +22,4 @@ Empresa industrial de 180 empleados: 100 horas al mes recuperadas de media, 1 me
 - Facebook: https://www.facebook.com/profile.php?id=61594792235784
 
 ## Blog
-- [Herramientas de IA que no se usan: por qué pasa](https://almudenagazquez.com/blog/herramientas-de-ia-que-no-se-usan/): Compraste una licencia de IA y hoy solo la abres tú. Te explico por qué pasa en las pymes y cuánto dinero te cuesta cada semana.
+- [Herramientas de IA que no se usan: por qué pasa](https://almudenagazquez.com/blog/herramientas-de-ia-que-no-se-usan/): Compraste una licencia de IA y hoy solo la abres tú. Te explico por qué pasa en las empresas y cuánto dinero te cuesta cada semana.
