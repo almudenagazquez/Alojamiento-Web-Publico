@@ -23,9 +23,39 @@
   <!-- blog -->
   <url>
     <loc>https://almudenagazquez.com/blog/</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/procesos-sin-documentar-en-la-empresa/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/mi-empresa-depende-de-mi/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/procesos-manuales-en-la-empresa/</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/gerente-no-puede-delegar/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/cuello-de-botella-en-la-empresa/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://almudenagazquez.com/blog/herramientas-de-ia-que-no-se-usan/</loc>
