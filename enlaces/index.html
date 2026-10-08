@@ -53,14 +53,22 @@
   footer p { margin-top: 14px; }
 
   body { background: var(--burdeos); color: var(--hueso); }
-  main { padding: 0 0 32px; max-width: 480px; position: relative; overflow: hidden; }
-  main:before { content: "AG"; position: absolute; right: -40px; top: 520px; font: 600 420px/1 'Fraunces', serif; color: rgba(237,233,224,.07); pointer-events: none; }
-  .cab { position: relative; height: 470px; margin: 0 0 28px; text-align: left; background: var(--tinta); overflow: hidden; }
+  main { padding: 28px 0 32px; max-width: 480px; position: relative; overflow: hidden; }
+  main:before { content: "AG"; position: absolute; right: -40px; top: 60px; font: 600 420px/1 'Fraunces', serif; color: rgba(237,233,224,.07); pointer-events: none; }
+  .cab { position: relative; background: var(--tinta); border-bottom: 4px solid var(--amarillo); }
+  .marco { position: relative; max-width: 640px; height: 470px; margin: 0 auto; overflow: hidden; }
   .cab img { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 0; border: 0; box-shadow: none; object-fit: cover; object-position: 60% 15%; margin: 0; }
-  .cab:after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,16,0) 40%, rgba(20,18,16,.92) 85%); }
-  .cab .txt { position: absolute; left: 20px; right: 20px; bottom: 24px; z-index: 2; }
+  .marco:after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,16,0) 40%, rgba(20,18,16,.92) 85%); }
+  .cab .txt { position: absolute; left: 20px; right: 20px; bottom: 24px; z-index: 2; max-width: 448px; }
   .cab h1 { font-size: 46px; line-height: .95; margin-bottom: 16px; color: var(--hueso); }
   .cab .label { display: inline-block; background: var(--amarillo); color: var(--tinta); padding: 7px 12px; transform: rotate(-2deg); }
+  @media (min-width: 641px) {
+    .marco { height: 560px; }
+    .cab img { -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); }
+    .cab .txt { left: 96px; }
+  }
+  .btn-linea { border: 1.5px solid var(--hueso); color: var(--hueso); }
+  .btn-linea:hover { background: rgba(237,233,224,.08); }
   .cab p.sub { color: #E6DFD3; margin-top: 14px; }
   .grupo { padding: 0 16px; position: relative; }
   .grupo > .label { color: var(--amarillo); }
@@ -75,18 +83,19 @@
 </style>
 </head>
 <body>
-<main>
-  <header class="cab">
+<header class="cab"><div class="marco">
     <img src="../img/almudena.jpg" alt="Almudena Gázquez" width="480" height="470">
     <div class="txt"><h1>Almudena<br>Gázquez</h1>
     <span class="label">IA para empresas</span>
     <p class="sub">Implantación de IA en empresas de 20 a 400 empleados.</p></div>
-  </header>
+</div></header>
+<main>
 
   <section class="grupo" aria-label="Empieza aquí">
     <a class="btn btn-calc" data-destino="calculadora" href="../calculadora/?origen=enlaces">Calcula horas y dinero perdidos →</a>
     <span class="nota">Gratis · 2 minutos · Datos del INE</span>
     <a class="btn btn-burdeos" data-destino="diagnostico" href="https://docs.google.com/forms/d/e/1FAIpQLSd7LJzN3R7xlhTs985ao5KVqieJXNlXOk1srVrcomaGP_C2lA/viewform?usp=pp_url&amp;entry.1998185425=enlaces" target="_blank" rel="noopener">Reservar Diagnóstico 60 →</a>
+    <a class="btn btn-linea" href="almudena-gazquez.vcf" download>Guardar mi contacto</a>
   </section>
 
   <section class="grupo" aria-label="Web y redes">
