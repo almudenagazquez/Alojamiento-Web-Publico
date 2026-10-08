@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141210">
+<title>Teleprompter</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+/* Teleprompter con grabación (08/10/2026). Herramienta interna de Almudena, sin enlace desde la web y fuera del buscador.
+   Pega el texto, graba con la cámara del móvil mientras el texto sube, y guarda el vídeo en el carrete. Nada sale del móvil. */
+@font-face{font-family:"Work Sans";src:url(/fuentes/WorkSans.ttf);font-weight:100 900}
+@font-face{font-family:"Fraunces";src:url(/fuentes/Fraunces.ttf);font-weight:100 900}
+:root{--tinta:#141210;--hueso:#EDE9E0;--burdeos:#5C1A28;--amarillo:#F5FF00;--gris:#8a857c}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--tinta);color:var(--hueso);font-family:"Work Sans",system-ui,sans-serif}
+button{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:12px 18px;font-weight:600}
+.oculto{display:none!important}
+/* Preparar */
+#prep{max-width:640px;margin:0 auto;padding:max(20px,env(safe-area-inset-top)) 16px 32px}
+h1{font-family:"Fraunces",serif;font-weight:600;font-size:28px;margin:8px 0 4px}
+.sub{color:var(--gris);font-size:14px;margin:0 0 16px}
+textarea{width:100%;min-height:44vh;border-radius:12px;border:1px solid #3a3530;background:#1d1a17;color:var(--hueso);padding:14px;font:17px/1.5 "Work Sans",sans-serif;resize:vertical}
+.fila{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.fila label{font-size:14px;color:var(--gris);display:flex;align-items:center;gap:8px;flex:1;min-width:140px}
+.fila input[type=range]{flex:1;accent-color:var(--amarillo)}
+.seg{display:flex;background:#1d1a17;border-radius:999px;padding:3px;border:1px solid #3a3530}
+.seg button{background:transparent;color:var(--hueso);padding:8px 14px;font-weight:500}
+.seg button.on{background:var(--hueso);color:var(--tinta)}
+.prim{background:var(--amarillo);color:var(--tinta);width:100%;font-size:18px;padding:16px}
+.sec{background:transparent;color:var(--hueso);border:1px solid #4a443d}
+.nota{font-size:13px;color:var(--gris);line-height:1.5}
+/* Teleprompter */
+#tp{position:fixed;inset:0;background:#000;overflow:hidden}
+#cam{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#cam.espejo{transform:scaleX(-1)}
+#velo{position:absolute;inset:0 0 auto 0;height:62%;background:linear-gradient(rgba(0,0,0,.82) 70%,rgba(0,0,0,0));pointer-events:none}
+#texto{position:absolute;left:0;right:0;top:0;height:52%;overflow:hidden;padding:calc(env(safe-area-inset-top) + 18px) 6vw 0;
+  -webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
+#rodillo{font-weight:600;line-height:1.3;color:#fff;will-change:transform}
+#rodillo p{margin:0 0 .8em}
+#rodillo .fin{color:var(--amarillo);font-size:.6em;padding-bottom:60vh}
+#guia{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top) + 18px);height:0;border-top:2px solid rgba(245,255,0,.0)}
+#estado{position:absolute;top:calc(env(safe-area-inset-top) + 6px);right:10px;font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;z-index:3}
+#estado.rec{background:#c81e1e}
+#cuenta{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 120px "Fraunces",serif;color:var(--amarillo);z-index:4;pointer-events:none}
+#barra{position:absolute;left:0;right:0;bottom:0;padding:12px 12px calc(env(safe-area-inset-bottom) + 14px);display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;background:linear-gradient(transparent,rgba(0,0,0,.7));z-index:3}
+#barra .peq{background:rgba(29,26,23,.85);color:#fff;padding:10px 14px;min-width:46px}
+#rec{width:74px;height:74px;border-radius:50%;padding:0;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 6px}
+#rec span{display:block;width:58px;height:58px;border-radius:50%;background:#e02424;transition:.2s}
+#rec.on span{width:30px;height:30px;border-radius:6px}
+#hoja{position:absolute;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);background:var(--hueso);color:var(--tinta);border-radius:16px;padding:18px;z-index:5;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#hoja h2{font-family:"Fraunces",serif;margin:0 0 6px;font-size:22px}
+#hoja p{margin:0 0 12px;font-size:14px;color:#4a443d}
+#hoja .fila{margin:8px 0 0}
+#hoja .prim{background:var(--tinta);color:var(--amarillo)}
+#hoja .sec{color:var(--tinta);border-color:#b9b2a6;flex:1}
+</style>
+</head>
+<body>
+
+<section id="prep">
+  <h1>Teleprompter</h1>
+  <p class="sub">Pega el texto, pulsa «Abrir» y graba. El texto sube solo mientras hablas y el vídeo se queda en tu móvil.</p>
+  <textarea id="t" placeholder="Pega aquí tu guion. Deja una línea en blanco entre frases para que respire."></textarea>
+  <div class="fila">
+    <label>Letra <input type="range" id="tam" min="22" max="64" step="2" value="38"></label>
+    <label>Velocidad <input type="range" id="vel" min="10" max="120" step="5" value="45"></label>
+  </div>
+  <div class="fila">
+    <div class="seg" id="camsel"><button data-c="user" class="on">Cámara frontal</button><button data-c="environment">Trasera</button></div>
+  </div>
+  <button class="prim" id="abrir">Abrir teleprompter</button>
+  <p class="nota">Con la cámara frontal, pon el texto pequeño y cerca del borde de arriba: así tu mirada queda casi en la lente. Toca el texto para parar o seguir. El texto se guarda en este móvil para la próxima vez.</p>
+</section>
+
+<section id="tp" class="oculto">
+  <video id="cam" playsinline autoplay muted class="espejo"></video>
+  <div id="velo"></div>
+  <div id="texto"><div id="rodillo"></div></div>
+  <div id="estado">Preparado</div>
+  <div id="cuenta" class="oculto"></div>
+  <div id="barra">
+    <button class="peq" id="cerrar" aria-label="Volver al texto">✕</button>
+    <button class="peq" id="menos" aria-label="Más lento">−</button>
+    <button class="peq" id="pausa" aria-label="Parar o seguir el texto">▶</button>
+    <button id="rec" aria-label="Grabar"><span></span></button>
+    <button class="peq" id="mas" aria-label="Más rápido">+</button>
+    <button class="peq" id="inicio" aria-label="Volver al principio">⤒</button>
+  </div>
+  <div id="hoja" class="oculto">
+    <h2>Toma grabada</h2>
+    <p id="hoja-info"></p>
+    <button class="prim" id="guardar">Guardar vídeo</button>
+    <div class="fila"><button class="sec" id="otra">Otra toma</button><button class="sec" id="editar">Editar texto</button></div>
+  </div>
+</section>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const CLAVE="teleprompter_v1";
+let cfg={texto:"",tam:38,vel:45,cam:"user"};
+try{cfg={...cfg,...JSON.parse(localStorage.getItem(CLAVE)||"{}")};}catch(e){}
+const guardarCfg=()=>{try{localStorage.setItem(CLAVE,JSON.stringify(cfg));}catch(e){}};
+$("t").value=cfg.texto; $("tam").value=cfg.tam; $("vel").value=cfg.vel;
+document.querySelectorAll("#camsel button").forEach(b=>b.classList.toggle("on",b.dataset.c===cfg.cam));
+$("t").oninput=()=>{cfg.texto=$("t").value;guardarCfg();};
+$("tam").oninput=()=>{cfg.tam=+$("tam").value;guardarCfg();};
+$("vel").oninput=()=>{cfg.vel=+$("vel").value;guardarCfg();};
+$("camsel").onclick=e=>{const c=e.target.dataset.c;if(!c)return;cfg.cam=c;guardarCfg();document.querySelectorAll("#camsel button").forEach(b=>b.classList.toggle("on",b===e.target));};
+
+/* ---------- Rodillo de texto ---------- */
+let pos=0,andando=false,ult=0;
+function pintarTexto(){
+  const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  const parr=cfg.texto.split(/\n\s*\n|\n/).map(s=>s.trim()).filter(Boolean);
+  $("rodillo").style.fontSize=cfg.tam+"px";
+  $("rodillo").innerHTML=parr.map(p=>`<p>${esc(p)}</p>`).join("")+`<p class="fin">— Fin —</p>`;
+  pos=0; mover();
+}
+function mover(){ $("rodillo").style.transform=`translateY(${-pos}px)`; }
+function paso(t){
+  if(!andando) return;
+  const dt=ult?(t-ult)/1000:0; ult=t;
+  const max=$("rodillo").scrollHeight-$("texto").clientHeight*0.25;
+  pos=Math.min(max,pos+cfg.vel*dt); mover();
+  requestAnimationFrame(paso);
+}
+function arrancar(){ if(andando) return; andando=true; ult=0; $("pausa").textContent="⏸"; requestAnimationFrame(paso); }
+function parar(){ andando=false; $("pausa").textContent="▶"; }
+$("texto").onclick=()=>andando?parar():arrancar();
+$("pausa").onclick=()=>andando?parar():arrancar();
+$("menos").onclick=()=>{cfg.vel=Math.max(10,cfg.vel-5);guardarCfg();estado(`Velocidad ${cfg.vel}`);};
+$("mas").onclick=()=>{cfg.vel=Math.min(160,cfg.vel+5);guardarCfg();estado(`Velocidad ${cfg.vel}`);};
+$("inicio").onclick=()=>{pos=0;mover();};
+// Arrastrar con el dedo para recolocar el texto
+let toqueY=null;
+$("texto").addEventListener("touchstart",e=>{toqueY=e.touches[0].clientY;},{passive:true});
+$("texto").addEventListener("touchmove",e=>{if(toqueY===null)return;const y=e.touches[0].clientY;pos=Math.max(0,pos+(toqueY-y));toqueY=y;mover();},{passive:true});
+$("texto").addEventListener("touchend",()=>{toqueY=null;});
+
+/* ---------- Cámara y grabación ---------- */
+let flujo=null,grab=null,trozos=[],ultimoVideo=null,tipo="",bloqueo=null,txtEstado="Preparado",tEstado=null;
+function estado(m,rec){ const el=$("estado"); el.textContent=m; el.classList.toggle("rec",!!rec);
+  clearTimeout(tEstado); if(!rec&&m!==txtEstado) tEstado=setTimeout(()=>{el.textContent=txtEstado;},1500); }
+function fijarEstado(m,rec){ txtEstado=m; estado(m,rec); }
+function elegirTipo(){
+  const op=["video/mp4;codecs=avc1.640028,mp4a.40.2","video/mp4;codecs=avc1,mp4a","video/mp4","video/webm;codecs=vp9,opus","video/webm;codecs=vp8,opus","video/webm"];
+  return op.find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(t))||"";
+}
+async function abrirCamara(){
+  cerrarCamara();
+  try{
+    flujo=await navigator.mediaDevices.getUserMedia({
+      video:{facingMode:cfg.cam,width:{ideal:1080},height:{ideal:1920},aspectRatio:{ideal:9/16},frameRate:{ideal:30}},
+      audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}
+    });
+    $("cam").srcObject=flujo; $("cam").classList.toggle("espejo",cfg.cam==="user");
+    const s=flujo.getVideoTracks()[0].getSettings();
+    fijarEstado(s.width&&s.height?`Cámara ${Math.min(s.width,s.height)}p`:"Cámara lista");
+    $("rec").disabled=false;
+  }catch(e){
+    $("cam").srcObject=null; $("rec").disabled=true;
+    fijarEstado("Sin cámara: solo texto");
+    alert("No he podido abrir la cámara. Revisa que este navegador tenga permiso de cámara y micrófono (Ajustes del móvil). Mientras, puedes usar solo el texto.");
+  }
+}
+function cerrarCamara(){ if(flujo){flujo.getTracks().forEach(t=>t.stop());flujo=null;} }
+async function pedirPantallaEncendida(){ try{ if("wakeLock" in navigator) bloqueo=await navigator.wakeLock.request("screen"); }catch(e){} }
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible"&&!$("tp").classList.contains("oculto")) pedirPantallaEncendida(); });
+
+async function cuentaAtras(){
+  const c=$("cuenta"); c.classList.remove("oculto");
+  for(const n of [3,2,1]){ c.textContent=n; await new Promise(r=>setTimeout(r,800)); }
+  c.classList.add("oculto");
+}
+async function empezarGrabacion(){
+  if(!flujo) return;
+  tipo=elegirTipo(); trozos=[];
+  try{ grab=new MediaRecorder(flujo,{...(tipo?{mimeType:tipo}:{}),videoBitsPerSecond:10000000,audioBitsPerSecond:192000}); }
+  catch(e){ try{ grab=new MediaRecorder(flujo); }catch(e2){ alert("Este navegador no deja grabar vídeo. Prueba con Safari (iPhone) o Chrome (Android)."); return; } }
+  $("rec").classList.add("on"); $("rec").disabled=true;
+  pos=0; mover(); await cuentaAtras();
+  grab.ondataavailable=e=>{ if(e.data&&e.data.size) trozos.push(e.data); };
+  grab.onstop=terminar;
+  grab.start(1000);
+  fijarEstado("● Grabando",true); $("rec").disabled=false; arrancar();
+}
+function pararGrabacion(){ if(grab&&grab.state!=="inactive") grab.stop(); parar(); $("rec").classList.remove("on"); }
+$("rec").onclick=()=>{ (grab&&grab.state==="recording")?pararGrabacion():empezarGrabacion(); };
+function terminar(){
+  const t=(grab&&grab.mimeType)||tipo||"video/mp4";
+  ultimoVideo=new Blob(trozos,{type:t});
+  const ext=t.includes("mp4")?"mp4":"webm";
+  const d=new Date(),p=n=>String(n).padStart(2,"0");
+  ultimoVideo.nombre=`toma-${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}.${ext}`;
+  const mb=(ultimoVideo.size/1048576).toFixed(1);
+  $("hoja-info").textContent=`${mb} MB · ${ext.toUpperCase()}. Pulsa «Guardar vídeo» y elige «Guardar vídeo» o «Guardar en Archivos». Si no lo guardas, se pierde al cerrar.`;
+  $("hoja").classList.remove("oculto"); fijarEstado("Toma lista");
+}
+$("guardar").onclick=async()=>{
+  if(!ultimoVideo) return;
+  const f=new File([ultimoVideo],ultimoVideo.nombre,{type:ultimoVideo.type});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){
+    try{ await navigator.share({files:[f]}); estado("Guardado ✓"); return; }catch(e){ if(e.name==="AbortError") return; }
+  }
+  const a=document.createElement("a"); a.href=URL.createObjectURL(f); a.download=f.name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),60000);
+};
+$("otra").onclick=()=>{ $("hoja").classList.add("oculto"); pos=0; mover(); fijarEstado("Preparado"); };
+$("editar").onclick=()=>{ $("hoja").classList.add("oculto"); salir(); };
+
+/* ---------- Entrar y salir ---------- */
+$("abrir").onclick=async()=>{
+  if(!cfg.texto.trim()){ alert("Pega primero el texto."); return; }
+  $("prep").classList.add("oculto"); $("tp").classList.remove("oculto");
+  pintarTexto(); pedirPantallaEncendida(); await abrirCamara();
+};
+function salir(){
+  if(grab&&grab.state==="recording"&&!confirm("Estás grabando. ¿Parar y salir? La toma se perderá.")) return;
+  if(grab&&grab.state==="recording"){ grab.onstop=null; grab.stop(); }
+  parar(); cerrarCamara(); $("rec").classList.remove("on");
+  try{ bloqueo&&bloqueo.release(); }catch(e){}
+  $("tp").classList.add("oculto"); $("prep").classList.remove("oculto");
+}
+$("cerrar").onclick=salir;
+</script>
+</body>
+</html>
