@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de horas perdidas: ¿cuánto pierde tu empresa?</title>
+<meta name="description" content="Calcula gratis cuántas horas y cuánto dinero pierde tu empresa al mes y al año en tareas a mano. 2 minutos, sin registro y con datos del INE.">
+<link rel="canonical" href="https://almudenagazquez.com/calculadora/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Almudena Gázquez · IA para empresas">
+<meta property="og:title" content="¿Cuánto dinero pierde tu empresa en tareas a mano?">
+<meta property="og:description" content="Calculadora gratis de horas perdidas: 2 minutos, sin registro y con el coste real por hora del INE.">
+<meta property="og:url" content="https://almudenagazquez.com/calculadora/">
+<meta property="og:image" content="https://almudenagazquez.com/img/og-cover.jpg">
+<meta property="og:image:alt" content="Calculadora de horas perdidas en una empresa, de Almudena Gázquez · IA para empresas.">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="¿Cuánto dinero pierde tu empresa en tareas a mano?">
+<meta name="twitter:description" content="Calculadora gratis de horas perdidas: 2 minutos, sin registro y con el coste real por hora del INE.">
+<meta name="twitter:image" content="https://almudenagazquez.com/img/og-cover.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://almudenagazquez.com/calculadora/#pagina",
+      "url": "https://almudenagazquez.com/calculadora/",
+      "name": "Calculadora de horas perdidas: ¿cuánto pierde tu empresa?",
+      "description": "Calcula gratis cuántas horas y cuánto dinero pierde tu empresa al mes y al año en tareas a mano. 2 minutos, sin registro y con datos del INE.",
+      "isPartOf": { "@id": "https://almudenagazquez.com/#negocio" },
+      "about": "Coste de las horas perdidas en la empresa"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "¿Es gratis de verdad?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Calcular es gratis y no pide registro. El informe en PDF también es gratis; solo pide nombre, empresa y correo, con tu consentimiento." } },
+        { "@type": "Question", "name": "¿Qué hago con el resultado?", "acceptedAnswer": { "@type": "Answer", "text": "Es lo que cuesta hoy esa tarea, no una promesa de ahorro. Úsalo para ver con tu equipo por dónde empezar a mirar, o llévalo al Diagnóstico 60 y lo repasamos en una hora." } },
+        { "@type": "Question", "name": "¿Sirve para mi sector?", "acceptedAnswer": { "@type": "Answer", "text": "Sí, está pensada para empresas de 20 a 400 empleados. Hay ocho sectores con su coste por hora del INE y «Otro», que usa la media de España (26,18 € por hora)." } }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  /* Tipografías alojadas en la propia web: sin llamadas a terceros ni cookies */
+  @font-face { font-family: 'Fraunces'; src: url('../fuentes/Fraunces.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: 'Work Sans'; src: url('../fuentes/WorkSans.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('../fuentes/IBMPlexMono-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+  :root { --burdeos: #5C1A28; --rosa: #D9A9B0; --oliva: #565C34; --tinta: #141210; --hueso: #EDE9E0; --papel: #F6F3EC; --texto2: #4A453D; --gris: #6E675C;
+          --linea: rgba(20, 18, 16, 0.14); --linea-osc: rgba(237, 233, 224, 0.14); --amarillo: #F5FF00; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--hueso); color: var(--tinta); font: 17px/1.6 'Work Sans', system-ui, sans-serif; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  h1, h2, h3, p { margin: 0; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 500; }
+  .label { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+  h2 { font-weight: 600; font-size: 32px; line-height: 1.2; letter-spacing: -0.01em; }
+  .sello { width: 40px; height: 40px; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; font: 600 18px 'Fraunces', Georgia, serif; background: var(--burdeos); color: var(--hueso); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 24px; border-radius: 2px; font: 500 13px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; text-align: center; }
+  .btn-calc { background: var(--amarillo); color: var(--tinta); border: 1.5px solid var(--tinta); box-shadow: 4px 4px 0 var(--tinta); font-weight: 600; }
+  .btn-calc:hover { background: #FBFF66; }
+  .btn-claro { background: var(--burdeos); color: var(--hueso); }
+  .btn-osc { background: var(--hueso); color: var(--burdeos); }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--linea); }
+  .marca { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .marca b { display: block; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.2; }
+  .marca small { font: 500 10px 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gris); }
+  .links { display: flex; gap: 26px; font-size: 15px; align-items: center; }
+  .links a { text-decoration: none; }
+  .nav .btn { min-height: 42px; padding: 0 18px; font-size: 12px; }
+  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; padding: 56px 0 80px; }
+  .hero .label { color: var(--burdeos); }
+  .hero h1 { font: 600 56px/1.05 'Fraunces', Georgia, serif; letter-spacing: -0.015em; margin: 16px 0 20px; text-wrap: balance; }
+  .hero .sub { font-size: 19px; color: var(--texto2); max-width: 540px; margin-bottom: 28px; }
+  .acc { display: grid; gap: 10px; justify-items: start; }
+  .acc .label { color: var(--gris); font-size: 11px; }
+  .firma { display: flex; align-items: center; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--linea); font-size: 14px; color: var(--texto2); }
+  .firma img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: top; }
+  .recibo { background: #fff; border: 1px solid var(--tinta); border-radius: 2px; box-shadow: 8px 8px 0 var(--tinta); }
+  .recibo-cab { padding: 16px 22px; border-bottom: 1px solid var(--linea); display: flex; justify-content: space-between; gap: 12px; }
+  .recibo-cab .label { font-size: 11px; color: var(--gris); }
+  .fila { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 14px 22px; border-bottom: 1px dashed var(--linea); font-size: 15px; }
+  .fila small { display: block; font: 500 11.5px 'IBM Plex Mono', monospace; color: var(--gris); }
+  .fila .mono { color: var(--burdeos); white-space: nowrap; }
+  .total { padding: 18px 22px; background: var(--papel); }
+  .total .label { color: var(--burdeos); font-size: 11px; }
+  .total .mono { font-size: 40px; line-height: 1.1; color: var(--burdeos); display: block; margin: 4px 0; }
+  .total small { font: 500 11px 'IBM Plex Mono', monospace; color: var(--gris); }
+  .recibo-pie { padding: 12px 22px; font-size: 13px; color: var(--texto2); }
+  section { padding: 88px 0; }
+  .alt { background: var(--papel); }
+  .cabecera { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 56px; margin-bottom: 40px; align-items: end; }
+  .cabecera .label { color: var(--burdeos); display: block; margin-bottom: 14px; }
+  .cabecera p { color: var(--texto2); }
+  .bloques { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .bloque { background: #fff; border: 1px solid var(--linea); border-radius: 2px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+  .bloque .mono { color: var(--burdeos); font-size: 13px; }
+  .bloque h3 { font-size: 17px; font-weight: 600; line-height: 1.3; }
+  .bloque p { color: var(--texto2); font-size: 14.5px; }
+  .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .formula { background: #fff; border: 1px solid var(--tinta); border-radius: 2px; padding: 26px; display: grid; gap: 12px; }
+  .formula .label { color: var(--burdeos); }
+  .formula .mono { font-size: 19px; color: var(--burdeos); }
+  .formula p { color: var(--texto2); }
+  .datos .label { color: var(--burdeos); display: block; margin-bottom: 12px; }
+  .datos h2 { margin-bottom: 16px; }
+  .datos ul { margin: 0; padding-left: 20px; }
+  .datos li { color: var(--texto2); margin-bottom: 8px; }
+  .faq { border-top: 1px solid var(--tinta); }
+  .faq details { border-bottom: 1px solid var(--linea); }
+  .faq summary { list-style: none; cursor: pointer; display: block; position: relative; padding: 22px 40px 22px 0; font-size: 18px; font-weight: 600; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; position: absolute; right: 0; top: 24px; font-family: 'IBM Plex Mono', monospace; color: var(--burdeos); font-size: 22px; line-height: 1; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { padding: 0 0 22px; color: var(--texto2); max-width: 760px; }
+  .oscuro { background: var(--tinta); color: var(--hueso); }
+  .final { text-align: center; padding: 96px 0; }
+  .final .label { color: var(--rosa); display: block; margin-bottom: 18px; }
+  .final h2 { font: 600 44px/1.1 'Fraunces', Georgia, serif; margin-bottom: 16px; text-wrap: balance; }
+  .final p { color: #CFC8BA; max-width: 600px; margin: 0 auto 32px; }
+  .final .acciones { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+  footer { border-top: 1px solid var(--linea-osc); padding: 40px 0; font-size: 14px; color: #A39B8E; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--hueso); }
+  @media (max-width: 900px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 20px; }
+    .links a:not(.btn) { display: none; }
+    .marca b { font-size: 13px; }
+    .hero { grid-template-columns: 1fr; gap: 36px; padding: 28px 0 56px; }
+    .hero h1 { font-size: 36px; }
+    .hero .sub { font-size: 17px; margin-bottom: 22px; }
+    .acc, .acc .btn { width: 100%; justify-items: stretch; }
+    .recibo { box-shadow: 5px 5px 0 var(--tinta); }
+    .total .mono { font-size: 32px; }
+    section { padding: 64px 0; }
+    h2 { font-size: 26px; }
+    .cabecera, .dos { grid-template-columns: 1fr; gap: 24px; }
+    .bloques { grid-template-columns: 1fr; }
+    .formula .mono { font-size: 16px; }
+    .final h2 { font-size: 32px; }
+    .final .btn { width: 100%; }
+    .nav .btn { white-space: nowrap; padding: 0 14px; }
+    .btn-calc { font-size: 12px; padding: 0 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <a class="marca" href="/"><span class="sello" aria-hidden="true">AG</span><span><b>Almudena Gázquez</b><small>IA para empresas</small></span></a>
+      <nav class="links" aria-label="Principal">
+        <a href="/#areas">Por áreas</a><a href="/#proceso">Cómo trabajamos</a><a href="/#sobre">Sobre mí</a><a href="/blog/">Blog</a>
+        <a class="btn btn-claro" href="https://docs.google.com/forms/d/e/1FAIpQLSd7LJzN3R7xlhTs985ao5KVqieJXNlXOk1srVrcomaGP_C2lA/viewform?usp=pp_url&entry.1998185425=calculadora-cabecera" target="_blank" rel="noopener">Reservar →</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <span class="label">Productividad en la empresa</span>
+        <h1>Calculadora de horas perdidas: cuánto dinero pierde tu empresa</h1>
+        <p class="sub">Descubre cuántas horas y euros se van cada mes en tareas a mano.</p>
+        <div class="acc">
+          <a class="btn btn-calc" href="https://calculadora.almudenagazquez.com/?origen=web-calculadora">CALCULA HORAS Y DINERO PERDIDOS →</a>
+          <span class="label">Gratis · 2 minutos · sin registro · datos del INE</span>
+        </div>
+        <div class="firma"><img src="../img/almudena.jpg" alt="" width="44" height="44"><span>Almudena Gázquez · Implantación de IA en empresas de 20 a 400 empleados</span></div>
+      </div>
+      <div class="recibo" aria-label="Ejemplo de cálculo">
+        <div class="recibo-cab"><span class="label">Ejemplo de cálculo · Una tarea hecha a mano cada día</span><span class="label">Ejemplo</span></div>
+        <div class="fila"><span>Personas que la hacen<small>pedidos copiados a mano al ERP</small></span><span class="mono">3</span></div>
+        <div class="fila"><span>Minutos al día, cada una<small>en cada jornada trabajada</small></span><span class="mono">60 min</span></div>
+        <div class="fila"><span>Horas al mes<small>× 16 jornadas efectivas ÷ 60</small></span><span class="mono">48 h</span></div>
+        <div class="fila"><span>Coste por hora<small>transporte y almacenamiento · INE</small></span><span class="mono">25,77 €</span></div>
+        <div class="total"><span class="label">Dinero que dejas de perder</span><span class="mono">14.800 €/año</span><small>más de 1.200 € al mes · redondeado hacia abajo</small></div>
+        <p class="recibo-pie">Ejemplo de cálculo con datos del INE (2.º trimestre de 2026): una empresa de distribución y logística de 85 empleados, no un cliente. La calculadora usa el coste de tu sector.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="cabecera">
+        <div><span class="label">Qué mide</span><h2>Qué mide la calculadora</h2></div>
+        <p>Siete pasos con toques: el tamaño de tu empresa, tu sector y cinco bloques. En cada bloque dices cuántas personas lo hacen y cuánto tiempo al día.</p>
+      </div>
+      <div class="bloques">
+        <div class="bloque"><span class="mono">01</span><h3>Lo que apruebas tú</h3><p>Gastos, vacaciones y pedidos que esperan tu visto bueno para seguir.</p></div>
+        <div class="bloque"><span class="mono">02</span><h3>Lo que solo sabe una persona</h3><p>Dudas que solo contesta una persona y tareas que no están escritas en ningún sitio.</p></div>
+        <div class="bloque"><span class="mono">03</span><h3>Lo que se copia a mano</h3><p>Datos que se teclean de un programa a otro: del correo al Excel, del Excel a las facturas.</p></div>
+        <div class="bloque"><span class="mono">04</span><h3>Lo que se pregunta cada día</h3><p>Las mismas preguntas de clientes y del equipo, contestadas una a una.</p></div>
+        <div class="bloque"><span class="mono">05</span><h3>Las reuniones que no deciden nada</h3><p>Reuniones sin orden del día que se repiten sin decidir nada.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap dos">
+      <div class="formula">
+        <span class="label">Cómo se calcula el coste de las horas perdidas</span>
+        <span class="mono">Personas × minutos al día × 16 jornadas ÷ 60 × coste por hora de tu sector</span>
+        <p>El coste por hora es un dato oficial del INE: Encuesta Trimestral de Coste Laboral, 2.º trimestre de 2026, coste laboral por hora efectiva por sector. La media de España es 26,18 € por hora y se usa si eliges «Otro». Se cuentan 16 jornadas al mes, las que de verdad se trabajan de media (129,4 horas efectivas), y el resultado se redondea siempre hacia abajo: es lo que cuesta hoy la tarea, no una promesa de ahorro. <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=6036" target="_blank" rel="noopener">Ver la fuente →</a></p>
+      </div>
+      <div class="datos">
+        <span class="label">Tus datos</span>
+        <h2>Tus datos</h2>
+        <ul>
+          <li><strong>Si solo calculas:</strong> no te pedimos nombre, correo ni teléfono para ver tu resultado. Guardamos tus respuestas y el resultado, sin datos que te identifiquen.</li>
+          <li><strong>Si pides el informe en PDF:</strong> solo entonces te pedimos nombre, empresa y correo, con una casilla de consentimiento.</li>
+          <li><strong>Cookies:</strong> esta página no usa cookies. La calculadora es una aplicación aparte y tiene su propio aviso. Más información en la <a href="/privacidad.html">política de privacidad</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="cabecera"><div><span class="label">Preguntas</span><h2>Antes de calcular.</h2></div></div>
+      <div class="faq">
+        <details><summary>¿Es gratis de verdad?</summary><p>Sí. Calcular es gratis y no pide registro. El informe en PDF también es gratis; solo pide nombre, empresa y correo, con tu consentimiento.</p></details>
+        <details><summary>¿Qué hago con el resultado?</summary><p>Es lo que cuesta hoy esa tarea, no una promesa de ahorro. Úsalo para ver con tu equipo por dónde empezar a mirar, o llévalo al Diagnóstico 60 y lo repasamos en una hora.</p></details>
+        <details><summary>¿Sirve para mi sector?</summary><p>Sí, está pensada para empresas de 20 a 400 empleados. Hay ocho sectores con su coste por hora del INE y «Otro», que usa la media de España (26,18 € por hora).</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="oscuro">
+  <section class="final">
+    <div class="wrap">
+      <span class="label">Diagnóstico gratuito de 1 hora</span>
+      <h2>Después de calcular, ¿cómo se cierra esa fuga?</h2>
+      <p>La calculadora te dice cuánto cuesta hoy. En el Diagnóstico 60 vemos, en una hora y gratis, por dónde se cierra primero, con la IA integrada en lo que ya tienes y con tu equipo.</p>
+      <div class="acciones">
+        <a class="btn btn-osc" href="https://docs.google.com/forms/d/e/1FAIpQLSd7LJzN3R7xlhTs985ao5KVqieJXNlXOk1srVrcomaGP_C2lA/viewform?usp=pp_url&entry.1998185425=calculadora-cierre" target="_blank" rel="noopener">Reservar Diagnóstico 60 →</a>
+        <a class="btn btn-calc" href="https://calculadora.almudenagazquez.com/?origen=web-calculadora-cierre">CALCULA HORAS Y DINERO PERDIDOS →</a>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="wrap">
+      <span>Almudena Gázquez · <a href="/">implantación de IA en empresas</a> de 20 a 400 empleados · ag@almudenagazquez.com · 613 86 59 25</span>
+      <span><a href="/aviso-legal.html">Aviso legal</a> · <a href="/privacidad.html">Privacidad</a> · <a href="/cookies.html">Cookies</a></span>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* Pasa el origen de la visita (por ejemplo ?origen=instagram-bio o web-menu) a los botones de la calculadora, sin cookies */
+(function () {
+  var o = new URLSearchParams(location.search).get('origen');
+  if (!o || !/^[a-z0-9-]{1,40}$/.test(o)) return;
+  document.querySelectorAll('a[href^="https://calculadora.almudenagazquez.com/"]').forEach(function (a) {
+    a.href = a.href.replace(/origen=([^&]*)/, function (m, actual) { return 'origen=' + o + (actual.indexOf('cierre') > -1 ? '-cierre' : ''); });
+  });
+})();
+</script>
+</body>
+</html>

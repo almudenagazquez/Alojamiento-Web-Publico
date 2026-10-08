@@ -10,8 +10,11 @@ Diez años como directora de proyectos y desarrollo estratégico de negocio en u
 - Tras el diagnóstico, presupuesto y plan de acción en una segunda reunión.
 - Implantación con el equipo ya existente en la empresa: se les forma y potencia, nunca se les sustituye.
 
-## Caso de referencia
-Empresa industrial de 180 empleados: 100 horas al mes recuperadas de media, 1 mes de implantación, 4 procesos intervenidos, 0 despidos.
+## Calculadora de horas perdidas
+Herramienta gratuita (2 minutos, sin registro) que calcula cuántas horas y euros pierde una empresa al mes y al año en tareas a mano, con el coste laboral por hora efectiva del INE por sector (2.º trimestre de 2026) y 16 jornadas efectivas al mes: https://almudenagazquez.com/calculadora/
+
+## Lo que dicen los datos
+Estudios públicos sobre el efecto de la IA en el trabajo: Brynjolfsson, Li y Raymond (Quarterly Journal of Economics, 2025), +14 % de casos resueltos por hora en atención al cliente; Dell'Acqua et al. (Harvard Business School y BCG, 2023), +12,2 % de tareas y 25,1 % más rápido; Noy y Zhang (Science, 2023), −40 % de tiempo en redacción. INE (2025): el 21,1 % de las empresas españolas de 10 o más empleados usa IA.
 
 ## Enlaces
 - Web: https://almudenagazquez.com/
@@ -20,8 +23,13 @@ Empresa industrial de 180 empleados: 100 horas al mes recuperadas de media, 1 me
 - Instagram: https://www.instagram.com/almudena.gazquez.ia/
 - YouTube: https://www.youtube.com/@almudenagazquez
 - Facebook: https://www.facebook.com/profile.php?id=61594792235784
+- LinkedIn: https://www.linkedin.com/in/almudena-g%C3%A1zquez-580327439
+- Calculadora: https://almudenagazquez.com/calculadora/
+- Teléfono: 613 86 59 25
 
 ## Blog
+- [Información dispersa en la empresa: el mismo dato, dos veces](https://almudenagazquez.com/blog/informacion-dispersa-en-la-empresa/): Media plantilla copia a mano el mismo Excel. La información dispersa en la empresa te hace pagar varias veces el mismo trabajo. Calcula cuánto.
+- [Falta de comunicación entre departamentos: el hilo roto](https://almudenagazquez.com/blog/falta-de-comunicacion-entre-departamentos/): Producción y ventas llevan meses culpándose del retraso. La falta de comunicación entre departamentos explica por qué y cuánto te cuesta.
 - [Procesos sin documentar en la empresa: contratar no basta](https://almudenagazquez.com/blog/procesos-sin-documentar-en-la-empresa/): Contratas a alguien y te siguen preguntando a ti. Los procesos sin documentar en la empresa hacen que contratar no baste. Mira cuánto cuesta.
 - [Mi empresa depende de mí: 3 señales de que es así](https://almudenagazquez.com/blog/mi-empresa-depende-de-mi/): Tu equipo te pregunta antes de decidir y las reuniones no avanzan sin ti. Estas 3 señales muestran que tu empresa depende de ti y cuánto cuesta.
 - [Procesos manuales en la empresa: el informe que repasas tú](https://almudenagazquez.com/blog/procesos-manuales-en-la-empresa/): El informe del lunes se monta a mano el viernes y lo repasas tú. Te explico por qué pasa con los procesos manuales y cuánto dinero te cuesta.
