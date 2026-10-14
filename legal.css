@@ -7,7 +7,7 @@ body { margin: 0; background: #EDE9E0; color: #141210; font-family: 'Work Sans',
 a { color: #5C1A28; }
 .cab { background: #141210; }
 .cab a { display: inline-flex; align-items: center; gap: 12px; color: #EDE9E0; text-decoration: none; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 14px; }
-.sello { width: 34px; height: 34px; border-radius: 2px; background: #EDE9E0; color: #5C1A28; display: inline-flex; align-items: center; justify-content: center; font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: 0; }
+.sello-ag { display: block; height: 20px; width: auto; flex-shrink: 0; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 22px 24px; }
 main .wrap { padding-top: 56px; padding-bottom: 88px; }
 .label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #5C1A28; }
