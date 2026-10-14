@@ -51,7 +51,9 @@
   @font-face { font-family: 'Work Sans'; src: url('../fuentes/WorkSans.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
   @font-face { font-family: 'IBM Plex Mono'; src: url('../fuentes/IBMPlexMono-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
   :root { --burdeos: #5C1A28; --rosa: #D9A9B0; --oliva: #565C34; --tinta: #141210; --hueso: #EDE9E0; --papel: #F6F3EC; --texto2: #4A453D; --gris: #6E675C;
-          --linea: rgba(20, 18, 16, 0.14); --linea-osc: rgba(237, 233, 224, 0.14); --amarillo: #F5FF00; }
+          --linea: rgba(20, 18, 16, 0.14); --linea-osc: rgba(237, 233, 224, 0.14); 
+          --oro: #C9A253; --oro-claro: #D8B568;
+    --oro-cepillado: repeating-linear-gradient(0deg, rgba(255,255,255,.07) 0 1px, transparent 1px 2px, rgba(70,45,10,.05) 2px 3px), linear-gradient(115deg, #A47C35 0%, #C9A458 22%, #E6CC8C 42%, #F1DFAA 50%, #D9B871 64%, #B48D42 84%, #CFAF68 100%); }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--hueso); color: var(--tinta); font: 17px/1.6 'Work Sans', system-ui, sans-serif; }
   img { max-width: 100%; display: block; }
@@ -61,10 +63,10 @@
   .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 500; }
   .label { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
   h2 { font-weight: 600; font-size: 32px; line-height: 1.2; letter-spacing: -0.01em; }
-  .sello { width: 40px; height: 40px; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; font: 600 18px 'Fraunces', Georgia, serif; background: var(--burdeos); color: var(--hueso); }
+  .sello-ag { display: block; height: 24px; width: auto; flex-shrink: 0; }
   .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 24px; border-radius: 2px; font: 500 13px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; text-align: center; }
-  .btn-calc { background: var(--amarillo); color: var(--tinta); border: 1.5px solid var(--tinta); box-shadow: 4px 4px 0 var(--tinta); font-weight: 600; }
-  .btn-calc:hover { background: #FBFF66; }
+  .btn-calc { background: var(--oro-cepillado); color: var(--tinta); border: 1px solid #7E5F25; box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 6px 18px rgba(0,0,0,.28); font-weight: 600; }
+  .btn-calc:hover { filter: brightness(1.06); }
   .btn-claro { background: var(--burdeos); color: var(--hueso); }
   .btn-osc { background: var(--hueso); color: var(--burdeos); }
   .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--linea); }
@@ -157,7 +159,7 @@
 <header>
   <div class="wrap">
     <div class="nav">
-      <a class="marca" href="/"><span class="sello" aria-hidden="true">AG</span><span><b>Almudena Gázquez</b><small>IA para empresas</small></span></a>
+      <a class="marca" href="/"><img class="sello-ag" src="/img/ag-oro-viejo.svg" alt="" aria-hidden="true" width="50" height="24" style="height:24px"><span><b>Almudena Gázquez</b><small>IA para empresas</small></span></a>
       <nav class="links" aria-label="Principal">
         <a href="/#areas">Por áreas</a><a href="/#proceso">Cómo trabajamos</a><a href="/#sobre">Sobre mí</a><a href="/blog/">Blog</a>
         <a class="btn btn-claro" href="https://docs.google.com/forms/d/e/1FAIpQLSd7LJzN3R7xlhTs985ao5KVqieJXNlXOk1srVrcomaGP_C2lA/viewform?usp=pp_url&entry.1998185425=calculadora-cabecera" target="_blank" rel="noopener">Reservar →</a>

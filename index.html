@@ -113,7 +113,8 @@
     --gris: #6E675C;
     --linea: rgba(20, 18, 16, 0.14);
     --linea-osc: rgba(237, 233, 224, 0.14);
-    --amarillo: #F5FF00; /* el de los recuadros de los reels: solo botones de la calculadora (08/10/2026) */
+    --oro: #C9A253; /* oro cepillado: botones de la calculadora y AG (Almudena, 14/10/2026) */ --oro-claro: #D8B568;
+    --oro-cepillado: repeating-linear-gradient(0deg, rgba(255,255,255,.07) 0 1px, transparent 1px 2px, rgba(70,45,10,.05) 2px 3px), linear-gradient(115deg, #A47C35 0%, #C9A458 22%, #E6CC8C 42%, #F1DFAA 50%, #D9B871 64%, #B48D42 84%, #CFAF68 100%);
     --max: 1160px;
   }
   * { box-sizing: border-box; }
@@ -131,6 +132,7 @@
 
   /* Sello */
   .sello { width: 40px; height: 40px; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 18px; flex-shrink: 0; }
+  .sello-ag { display: block; height: 24px; width: auto; flex-shrink: 0; }
   .sello-claro { background: var(--burdeos); color: var(--hueso); }
   .sello-osc { background: var(--hueso); color: var(--burdeos); }
 
@@ -337,11 +339,11 @@
     .sintomas-movil, .ficha-cuerpo-movil { display: block; }
   }
   /* Rediseño 08/10/2026 (Manual/01, «Rediseño de la web»): tinta enmarca · hueso para leer · blanco para la prueba ·
-     burdeos una sola banda · amarillo solo en los botones de la calculadora, con letras negras y borde y sombra tinta */
-  .btn-calc { background: var(--amarillo); color: var(--tinta); border: 1.5px solid var(--tinta); box-shadow: 4px 4px 0 var(--tinta); font-weight: 600; }
-  .btn-calc:hover { background: #FBFF66; }
-  .nav-calc { background: var(--amarillo); color: var(--tinta) !important; padding: 7px 12px; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-decoration: none; }
-  .franja-calc { display: none; background: var(--amarillo); text-align: center; padding: 10px 20px; }
+     burdeos una sola banda · oro cepillado solo en los botones de la calculadora, con letras negras (14/10/2026) */
+  .btn-calc { background: var(--oro-cepillado); color: var(--tinta); border: 1px solid #7E5F25; box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 6px 18px rgba(0,0,0,.28); font-weight: 600; }
+  .btn-calc:hover { filter: brightness(1.06); }
+  .nav-calc { background: var(--oro-cepillado); color: var(--tinta) !important; border: 1px solid #7E5F25; padding: 7px 12px; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-decoration: none; }
+  .franja-calc { display: none; background: var(--oro-cepillado); text-align: center; padding: 10px 20px; }
   .franja-calc a { color: var(--tinta); text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
   .hero-cta { display: grid !important; gap: 18px; justify-items: start; }
   .par { display: grid; gap: 8px; justify-items: start; }
@@ -406,7 +408,7 @@
   <div class="wrap">
     <div class="nav">
       <a class="marca" href="#">
-        <span class="sello sello-osc" aria-hidden="true">AG</span>
+        <img class="sello-ag" src="/img/ag-oro.svg" alt="" aria-hidden="true" width="50" height="24" style="height:24px">
         <span>
           <span class="marca-nombre" style="display:block">Almudena Gázquez</span>
           <span class="label marca-servicio" style="display:block">IA para empresas</span>
@@ -703,7 +705,7 @@
     <div class="pie">
       <div>
         <a class="marca" href="#">
-          <span class="sello sello-osc" aria-hidden="true" style="width:32px;height:32px;font-size:14px">AG</span>
+          <img class="sello-ag" src="/img/ag-oro.svg" alt="" aria-hidden="true" width="38" height="18" style="height:18px">
           <span>Almudena Gázquez · IA para empresas</span>
         </a>
         <p class="pie-lema">Implantación de IA en empresas de 20 a 400 empleados.</p>
