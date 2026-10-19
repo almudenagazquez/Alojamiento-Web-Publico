@@ -29,9 +29,15 @@
   <!-- blog -->
   <url>
     <loc>https://almudenagazquez.com/blog/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/dependencia-de-una-persona-clave/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://almudenagazquez.com/blog/informacion-dispersa-en-la-empresa/</loc>
