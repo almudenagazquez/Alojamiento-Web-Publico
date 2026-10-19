@@ -29,9 +29,33 @@
   <!-- blog -->
   <url>
     <loc>https://almudenagazquez.com/blog/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/coste-de-las-horas-perdidas/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/tareas-repetitivas-en-la-oficina/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/decisiones-que-dependen-del-gerente/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://almudenagazquez.com/blog/interrupciones-en-el-trabajo/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://almudenagazquez.com/blog/dependencia-de-una-persona-clave/</loc>
