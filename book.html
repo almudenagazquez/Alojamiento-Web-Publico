@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Before your 1-hour meeting · Almudena Gázquez</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="legal.css">
+<style>
+  form { margin-top: 32px; }
+  .campo { margin-bottom: 24px; }
+  label { display: block; font-weight: 600; line-height: 1.35; }
+  .ayuda { display: block; font-weight: 400; font-size: 15px; color: #565C34; margin-top: 4px; }
+  input, select, textarea { display: block; width: 100%; margin-top: 8px; padding: 11px 12px; font: inherit; font-size: 16px; color: inherit; background: #F7F4ED; border: 1px solid #14121040; border-radius: 2px; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid #5C1A28; outline-offset: 1px; }
+  .boton { display: inline-block; padding: 13px 26px; background: #5C1A28; color: #EDE9E0; font: inherit; font-weight: 700; text-decoration: none; border: 0; border-radius: 2px; cursor: pointer; }
+  .pequena { font-size: 14px; color: #565C34; margin-top: 16px; }
+  [hidden] { display: none; }
+</style>
+</head>
+<body>
+<header class="cab"><div class="wrap"><a href="index.html"><img class="sello-ag" src="/img/ag-oro.svg" alt="" aria-hidden="true" width="42" height="20" style="height:20px">Almudena Gázquez</a></div></header>
+<main><div class="wrap">
+  <h1>Before your 1-hour meeting</h1>
+  <p>Before the call, I need some basic details about your company so that I can prepare properly and you get the most out of the hour. I also ask that the person with authority to approve new services attends the meeting: it is the only way for the conversation to really move forward. It takes two minutes, and then you're ready to book.</p>
+
+  <!-- Mismo Google Form que la versión española: mismo CRM. Si se cambia una pregunta allí, cambia su entry aquí. -->
+  <form id="reserva" action="https://docs.google.com/forms/d/e/1FAIpQLSd7LJzN3R7xlhTs985ao5KVqieJXNlXOk1srVrcomaGP_C2lA/formResponse" method="POST" target="envio">
+    <div class="campo"><label for="web">Your company's website <span class="ayuda">So I can study it before the meeting and bring specific questions about your case.</span></label><input id="web" name="entry.2108052301" required></div>
+    <div class="campo"><label for="ig">Your company's Instagram (the company account, not your personal one) <span class="ayuda">If it doesn't have one, leave this blank.</span></label><input id="ig" name="entry.1198370024"></div>
+    <div class="campo"><label for="empresa">Company name</label><input id="empresa" name="entry.1581176661" autocomplete="organization"></div>
+    <div class="campo"><label for="persona">Name and job title of the person attending the meeting</label><input id="persona" name="entry.1786395565" required></div>
+    <div class="campo"><label for="correo">Contact email</label><input id="correo" name="entry.664127513" type="email" autocomplete="email" required></div>
+    <div class="campo"><label for="tel">Phone, with country code <span class="ayuda">I'll message you on this number to confirm your attendance before the session.</span></label><input id="tel" name="entry.616125868" type="tel" autocomplete="tel" required></div>
+    <div class="campo"><label for="empleados">Number of employees</label>
+      <select id="empleados" name="entry.1337632399" required>
+        <option value="">Choose</option>
+        <option>20-50</option>
+        <option>51-100</option>
+        <option>101-200</option>
+        <option>201-400</option>
+        <option value="Más de 400">More than 400</option>
+      </select>
+    </div>
+    <div class="campo"><label for="sector">Sector <span class="ayuda">In a few words.</span></label><input id="sector" name="entry.894082868" required></div>
+    <div class="campo"><label for="otros">Should anyone else from your company be on the call? <span class="ayuda">If someone else also decides on hiring this kind of service, give me their name and job title here so I can invite them to the session.</span></label><input id="otros" name="entry.1859306986" required></div>
+    <div class="campo"><label for="contexto">Anything you'd like to tell us before the meeting? <span class="ayuda">Any problem, process or context you think would be useful for me to know before the call. You can tell me about one or several, in as much detail as you like: the more I know in advance, the better I can prepare the session.</span></label><textarea id="contexto" name="entry.324798206" rows="5"></textarea></div>
+    <input type="hidden" id="origen" name="entry.1998185425" value="web-en">
+    <button class="boton" type="submit">Send and book my time</button>
+    <p class="pequena">We use these details only to organise and prepare the meeting. See the <a href="privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
+  </form>
+
+  <div id="gracias" hidden>
+    <p>Thank you. I have what I need to prepare the session. Book your time here:</p>
+    <p><a class="boton" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1m0qbvYcX8dofOMor7GPaOoAc6NFHuTUkyz84vbSYM55Es2JlJJUgvuxlFHaEkUIJ9T5wqjoNN" target="_blank" rel="noopener">Book my 1-hour meeting</a></p>
+  </div>
+
+  <iframe name="envio" title="" hidden></iframe>
+  <p style="margin-top:40px"><a href="privacy.html">Privacy policy</a> · <a href="aviso-legal.html">Legal notice</a></p>
+</div></main>
+<script>
+  // El canal llega en ?origen=; en el CRM, con -en al final, como pide el encargo 150.
+  var canal = new URLSearchParams(location.search).get('origen');
+  if (canal) document.getElementById('origen').value = canal.replace(/-en$/, '') + '-en';
+  // shortcut: Google no deja leer su respuesta desde otra web, así que un fallo suyo no se ve aquí; si hiciera falta, pasar a una función propia.
+  document.getElementById('reserva').addEventListener('submit', function () {
+    var form = this;
+    document.querySelector('iframe[name=envio]').addEventListener('load', function () {
+      form.hidden = true;
+      document.getElementById('gracias').hidden = false;
+      window.scrollTo(0, 0);
+    }, { once: true });
+  });
+</script>
+</body>
+</html>
