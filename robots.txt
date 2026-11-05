@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /guia/
 
 Sitemap: https://almudenagazquez.com/sitemap.xml
