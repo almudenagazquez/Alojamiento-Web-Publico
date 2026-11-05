@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ \"$CLAUDE_CODE_REMOTE\" = true ] && python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/aviso_norma.py\" || true",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
