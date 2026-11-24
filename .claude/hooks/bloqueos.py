@@ -1,3 +1,4 @@
+# Inactivo: Almudena decidió el 24/11/2026 no activarlo; ningún settings.json lo llama.
 """Disparador PreToolUse de Claude Code: «lo que nunca se rompe se asegura con bloqueos» (MANUAL 0.3, 7.8).
 
 Matcher: Write|Edit|MultiEdit|Bash|PowerShell. Lee el JSON de la herramienta por la entrada estándar y:
