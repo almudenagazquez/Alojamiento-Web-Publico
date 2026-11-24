@@ -1,4 +1,6 @@
 {
+  "env": { "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet" },
+  "autoCompactWindow": 200000,
   "hooks": {
     "Stop": [
       {
