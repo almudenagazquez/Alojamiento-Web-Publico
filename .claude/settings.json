@@ -1,7 +1,22 @@
 {
   "env": { "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet" },
   "autoCompactWindow": 200000,
+  "permissions": {
+    "deny": ["Read(**/.env)", "Read(**/.env.local)", "Read(**/.env.*.local)", "Read(**/.env.development)", "Read(**/.env.production)", "Read(**/.env.staging)", "Read(**/.env.test)", "Read(**/*.pem)", "Read(**/*.key)", "Read(**/*.p12)", "Read(**/*.pfx)", "Read(**/id_rsa)", "Read(**/id_ed25519)", "Read(**/credentials.json)"]
+  },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "S=\"$CLAUDE_PROJECT_DIR/.claude/hooks/bloqueos.py\"; [ -f \"$S\" ] || exit 0; P=python3; python3 -V >/dev/null 2>&1 || P=python; \"$P\" \"$S\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
