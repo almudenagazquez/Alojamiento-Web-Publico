@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Margen por cliente</title>
+<meta name="description" content="Calculadora gratuita del margen real de cada cliente de una empresa de transporte frigorífico: kilómetros, esperas y días de cobro.">
+<!-- Regalo 2 del encargo 403 (transporte frigorífico). Archivo único: se abre sin servidor. Cálculo en calcular(); prueba: abrir con #prueba y mirar la consola. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Mono:wght@500&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--hueso:#EDE9E0;--tinta:#141210;--burdeos:#5C1A28;--oliva:#565C34;--rosa:#D9A9B0;--oro:#9A7228;--gris:#5a544d;--linea:#bdb6a8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--hueso);color:var(--tinta);font:400 16px/1.5 "Work Sans",sans-serif}
+main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.sello{width:34px;height:34px;background:var(--burdeos);color:var(--hueso);border-radius:2px;display:grid;place-items:center;font:600 15px Fraunces,serif}
+.mono{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+h1{font:600 clamp(30px,7vw,42px)/1.1 Fraunces,serif;margin:10px 0 14px}
+h2{font:600 24px/1.2 Fraunces,serif;margin:0 0 6px}
+p.sub{margin-bottom:8px}
+section{border-top:1px solid var(--tinta);padding:24px 0 8px;margin-top:24px}
+.ayuda{font-size:14px;color:var(--gris);margin-bottom:16px}
+label{display:block;margin:14px 0 0;font-weight:600;font-size:15px}
+label small{display:block;font-weight:400;font-size:13px;color:var(--gris);margin-top:2px}
+.campo{display:flex;align-items:center;border:1px solid var(--tinta);border-radius:2px;background:#fff;margin-top:6px;min-height:48px}
+.campo input{flex:1;border:0;background:transparent;font:500 17px "IBM Plex Mono",monospace;padding:12px;min-width:0;color:var(--tinta)}
+.campo input:focus{outline:2px solid var(--burdeos);outline-offset:-2px}
+.campo span{font:500 13px "IBM Plex Mono",monospace;padding:0 12px;color:var(--gris);white-space:nowrap}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+@media(max-width:520px){.dos{grid-template-columns:1fr}}
+.falta{border-left:2px solid var(--burdeos);padding:6px 0 6px 12px;font-size:14px;margin:18px 0}
+.cifra{font:600 clamp(40px,10vw,56px)/1 Fraunces,serif;color:var(--burdeos);margin:8px 0 4px}
+.cifra-t{font:600 20px/1.2 Fraunces,serif;margin-bottom:16px}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+@media(max-width:520px){.res{grid-template-columns:1fr}}
+.caja{border:1px solid var(--tinta);border-radius:2px;padding:14px;background:#fff}
+.caja b{display:block;font:600 26px Fraunces,serif;margin-top:4px}
+.barra{margin:10px 0}
+.barra .l{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;gap:8px}
+.barra .l b{font:500 13px "IBM Plex Mono",monospace;white-space:nowrap}
+.barra .t{height:6px;background:#d6d0c4}
+.barra .t i{display:block;height:6px;background:var(--oliva)}
+.barra.max .t i{background:var(--burdeos)}
+.rojo{color:var(--burdeos)}
+.btn{display:block;width:100%;min-height:48px;background:var(--burdeos);color:var(--hueso);text-align:center;font:600 16px "Work Sans",sans-serif;padding:14px;border:0;border-radius:2px;text-decoration:none;cursor:pointer;margin-top:12px}
+.btn2{background:transparent;color:var(--tinta);border:1px solid var(--tinta)}
+.peq{font-size:12.5px;line-height:1.45;color:var(--gris);margin-top:10px}
+footer{border-top:1px solid var(--tinta);margin-top:40px;padding-top:16px;font-size:13px;color:var(--gris)}
+@media print{
+  body{background:#fff}
+  .campo,.caja{background:#fff}
+  .noimp{display:none!important}
+  section{break-inside:avoid}
+  main{max-width:none;padding:0}
+}
+.cli{border:1px solid var(--tinta);border-radius:2px;background:#fff;padding:4px 14px 14px;margin-top:16px}
+.cli .cab{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.quitar{background:none;border:0;font:500 13px "IBM Plex Mono",monospace;color:var(--burdeos);min-height:44px;padding:0 4px;cursor:pointer}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+th{font:500 11px "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;text-align:right;padding:8px 4px;border-bottom:1px solid var(--tinta)}
+th:first-child,td:first-child{text-align:left}
+td{padding:10px 4px;vertical-align:top;border-bottom:1px solid var(--linea);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:13px}
+td:first-child{font-family:"Work Sans",sans-serif;font-size:15px;font-weight:600}
+tr.pierde td{color:var(--burdeos)}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><span class="sello">AG</span><span class="mono">IA para empresas · transporte</span></div>
+  <p class="mono" style="color:var(--oliva)">Calculadora · 10 minutos con tus números</p>
+  <h1>Qué cliente te da dinero y cuál te lo quita</h1>
+  <p class="sub">Un cliente que factura mucho puede dejarte poco: kilómetros en vacío, horas de espera en el muelle y meses para pagar. Mete tus clientes y ve lo que te deja cada uno.</p>
+  <p class="peq">Nada sale de tu navegador: no se guarda ni se envía ningún dato. Con 3 o 4 clientes ya se ve la diferencia.</p>
+
+  <section>
+    <p class="mono" style="color:var(--oliva)">01 · Tus costes</p>
+    <h2>Lo que te cuesta el camión</h2>
+    <p class="ayuda">Si no los sabes, sácalos con la calculadora del coste por kilómetro: <a href="/regalos/coste-por-km/" style="color:var(--burdeos)">calcular mi coste por kilómetro</a>.</p>
+    <div class="dos">
+      <label for="costeKm">Coste por kilómetro<small>Todo incluido: gasoil, conductor, camión, oficina</small></label>
+      <label for="costeHora">Coste por hora de camión parado<small>Lo fijo: conductor, camión, seguros y oficina</small></label>
+    </div>
+    <div class="dos">
+      <div class="campo"><input id="costeKm" inputmode="decimal" autocomplete="off"><span>€/km</span></div>
+      <div class="campo"><input id="costeHora" inputmode="decimal" autocomplete="off"><span>€/h</span></div>
+    </div>
+    <label for="interes">Interés de tu póliza de crédito o de descuento<small>Lo que te cuesta adelantar el dinero mientras el cliente no paga. Si no tienes póliza, déjalo en blanco</small></label>
+    <div class="campo"><input id="interes" inputmode="decimal" autocomplete="off"><span>% al año</span></div>
+  </section>
+
+  <section>
+    <p class="mono" style="color:var(--oliva)">02 · Tus clientes</p>
+    <h2>Cliente a cliente, en un año</h2>
+    <p class="ayuda">Los kilómetros, de la rotación entera: ida, vuelta y lo que haces en vacío por culpa de ese cliente.</p>
+    <div id="clientes"></div>
+    <button class="btn btn2 noimp" type="button" id="anadir">Añadir otro cliente</button>
+  </section>
+
+  <section id="resultado" aria-live="polite">
+    <p class="mono" style="color:var(--burdeos)">Tu cuenta</p>
+    <div id="falta" class="falta">Rellena tu coste por kilómetro y, de al menos un cliente, lo que te factura, los viajes y los kilómetros por viaje.</div>
+    <div id="cuenta" hidden>
+      <p class="cifra" id="rMargen">–</p>
+      <p class="cifra-t" id="rMargenT">te dejan estos clientes al año</p>
+      <div id="aviso" class="falta" hidden></div>
+      <div style="overflow-x:auto">
+        <table><thead><tr><th>Cliente</th><th>Factura</th><th>Te cuesta</th><th>Te deja</th></tr></thead><tbody id="tabla"></tbody></table>
+      </div>
+      <div id="barras" style="margin-top:20px"></div>
+      <p class="peq">Te cuesta = viajes × km por viaje × coste por km + viajes × horas de espera de más × coste por hora + lo que factura × días de cobro ÷ 365 × interés de la póliza. Ordenados de lo que más te deja a lo que menos.</p>
+    </div>
+  </section>
+
+  <section class="noimp">
+    <button class="btn btn2" type="button" onclick="window.print()">Imprimir o guardar en PDF</button>
+    <p class="peq" style="margin-top:20px">¿Quieres mirar estos números con alguien que conoce el sector? En el Diagnóstico 360º, gratuito, vemos dónde se va el margen de tu empresa y qué parte se puede recuperar con IA.</p>
+    <a class="btn btn2" href="https://docs.google.com/forms/d/e/1FAIpQLSd7LJzN3R7xlhTs985ao5KVqieJXNlXOk1srVrcomaGP_C2lA/viewform" rel="noopener">Reservar mi Diagnóstico 360º</a>
+  </section>
+
+  <footer>
+    <p><b>Almudena Gázquez</b> · IA para empresas · almudenagazquez.com · ag@almudenagazquez.com · 613 86 59 25</p>
+    <p class="peq">Referencias del sector (estudio del sector frigorífico del sureste, octubre de 2026): margen neto habitual del 1 al 3 %; cobro a 52 días de media y un 38 % de clientes que paga a más de 60. El resultado depende de los datos que metas.</p>
+  </footer>
+</main>
+<script>
+// Acepta 1,35 · 1.35 · 1.000 · 120.000 · 120000 (el punto con 3 cifras detrás es de miles).
+const num = v => { let s = String(v).replace(/\s|€|%/g,''); if (s.includes(',')) s = s.replace(/\./g,'').replace(',','.'); else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g,''); const n = parseFloat(s); return isFinite(n) && n >= 0 ? n : 0; };
+const eur = (n, d = 0) => n.toLocaleString('es-ES', {style:'currency', currency:'EUR', minimumFractionDigits:d, maximumFractionDigits:d});
+const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const GEN = ['costeKm','costeHora','interes'];
+const FILA = [['nombre','Nombre del cliente','',''],['factura','Lo que te factura al año','€',''],['viajes','Viajes al año','viajes',''],
+              ['km','Kilómetros por viaje','km','Ida, vuelta y vacío'],['espera','Horas de espera de más por viaje','h','Las que pasan de lo normal y no cobras'],['cobro','Días que tarda en pagarte','días','']];
+
+// Cálculo puro: g = {costeKm, costeHora, interes}; cs = clientes en número. Devuelve null si falta lo imprescindible.
+function calcular(g, cs) {
+  if (!(g.costeKm > 0)) return null;
+  const filas = cs.filter(c => c.factura > 0 && c.viajes > 0 && c.km > 0).map(c => {
+    const rodar = c.viajes * c.km * g.costeKm, esperar = c.viajes * c.espera * g.costeHora, financiar = c.factura * c.cobro / 365 * g.interes / 100;
+    const coste = rodar + esperar + financiar;
+    return {nombre: c.nombre || 'Sin nombre', factura: c.factura, coste, rodar, esperar, financiar, margen: c.factura - coste, pct: (c.factura - coste) / c.factura};
+  }).sort((a, b) => b.margen - a.margen);
+  if (!filas.length) return null;
+  const factura = filas.reduce((s, f) => s + f.factura, 0), margen = filas.reduce((s, f) => s + f.margen, 0);
+  return {filas, factura, margen, pct: margen / factura};
+}
+
+const caja = document.getElementById('clientes');
+function anadir(datos = {}) {
+  const n = caja.children.length + 1, d = document.createElement('div');
+  d.className = 'cli';
+  d.innerHTML = `<div class="cab"><span class="mono">Cliente ${n}</span><button type="button" class="quitar noimp">Quitar</button></div>` +
+    FILA.map(([k, t, u, a]) => `<label>${t}${a ? `<small>${a}</small>` : ''}<div class="campo"><input data-k="${k}" ${k === 'nombre' ? '' : 'inputmode="decimal"'} autocomplete="off" value="${esc(datos[k] || '')}">${u ? `<span>${u}</span>` : ''}</div></label>`).join('');
+  d.querySelector('.quitar').onclick = () => { d.remove(); pintar(); };
+  d.querySelectorAll('input').forEach(i => i.addEventListener('input', pintar));
+  caja.appendChild(d);
+}
+function leerClientes(crudo) {
+  return [...caja.children].map(d => Object.fromEntries([...d.querySelectorAll('input')].map(i => [i.dataset.k, crudo || i.dataset.k === 'nombre' ? i.value.trim() : num(i.value)])));
+}
+
+function pintar() {
+  const g = Object.fromEntries(GEN.map(k => [k, num(document.getElementById(k).value)]));
+  try { localStorage.setItem('ag-margen-cliente', JSON.stringify({g: Object.fromEntries(GEN.map(k => [k, document.getElementById(k).value])), c: leerClientes(true)})); } catch (e) {}
+  const r = calcular(g, leerClientes(false));
+  document.getElementById('falta').hidden = !!r;
+  document.getElementById('cuenta').hidden = !r;
+  if (!r) return;
+  document.getElementById('rMargen').textContent = eur(r.margen);
+  document.getElementById('rMargen').classList.toggle('rojo', r.margen < 0);
+  document.getElementById('rMargenT').textContent = (r.margen < 0 ? 'pierdes al año con estos clientes' : 'te dejan estos clientes al año') + ' · ' + (r.pct * 100).toLocaleString('es-ES', {maximumFractionDigits:1}) + ' % de lo que facturan';
+  const malos = r.filas.filter(f => f.margen < 0);
+  const aviso = document.getElementById('aviso');
+  aviso.hidden = !malos.length;
+  aviso.innerHTML = malos.length ? `<b>${malos.map(f => esc(f.nombre)).join(', ')}</b>: ${malos.length > 1 ? 'te cuestan' : 'te cuesta'} más de lo que ${malos.length > 1 ? 'pagan' : 'paga'}. Antes de la próxima tarifa, mira de dónde sale: ¿kilómetros en vacío, esperas o lo que tarda en pagar?` : '';
+  document.getElementById('tabla').innerHTML = r.filas.map(f => `<tr class="${f.margen < 0 ? 'pierde' : ''}"><td>${esc(f.nombre)}</td><td>${eur(f.factura)}</td><td>${eur(f.coste)}</td><td>${eur(f.margen)}<br><small>${(f.pct * 100).toLocaleString('es-ES', {maximumFractionDigits:1})} %</small></td></tr>`).join('');
+  const max = Math.max(...r.filas.map(f => Math.abs(f.margen))) || 1;
+  document.getElementById('barras').innerHTML = r.filas.map(f =>
+    `<div class="barra${f.margen < 0 ? ' max' : ''}"><div class="l"><span>${esc(f.nombre)}</span><b>${eur(f.margen)}</b></div><div class="t"><i style="width:${Math.abs(f.margen) / max * 100}%"></i></div><p class="peq" style="margin-top:4px">Rodar ${eur(f.rodar)} · esperas ${eur(f.esperar)} · cobrar tarde ${eur(f.financiar)}</p></div>`).join('');
+}
+
+let guardado = {};
+try { guardado = JSON.parse(localStorage.getItem('ag-margen-cliente') || '{}'); } catch (e) {}
+GEN.forEach(k => { const e = document.getElementById(k); if (guardado.g && guardado.g[k]) e.value = guardado.g[k]; e.addEventListener('input', pintar); });
+// Lo que llega de la calculadora 1 manda sobre lo guardado.
+const q = new URLSearchParams(location.search);
+if (q.get('km')) document.getElementById('costeKm').value = q.get('km').replace('.', ',');
+if (q.get('hora')) document.getElementById('costeHora').value = q.get('hora').replace('.', ',');
+(guardado.c && guardado.c.length ? guardado.c : [{}, {}, {}]).forEach(anadir);
+document.getElementById('anadir').onclick = () => anadir();
+pintar();
+
+if (location.hash === '#prueba') {
+  const r = calcular({costeKm:1, costeHora:40, interes:5}, [
+    {nombre:'A', factura:100000, viajes:50, km:1500, espera:0, cobro:0},
+    {nombre:'B', factura:73000, viajes:40, km:1500, espera:5, cobro:100},
+    {nombre:'', factura:0, viajes:10, km:10, espera:0, cobro:0}]);
+  console.assert(r.filas.length === 2 && r.filas[0].nombre === 'A' && r.filas[0].margen === 25000, 'A', r.filas[0]);
+  console.assert(r.filas[1].coste === 60000 + 8000 + 1000 && r.filas[1].margen === 4000, 'B', r.filas[1]);
+  console.assert(r.margen === 29000 && r.factura === 173000, 'total');
+  console.assert(calcular({costeKm:0}, []) === null, 'sin coste');
+  console.assert(num('1,45') === 1.45 && num('1.000') === 1000, 'num');
+  console.log('prueba margen-cliente: hecha');
+}
+</script>
+</body>
+</html>
