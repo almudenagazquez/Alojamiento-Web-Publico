@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coste real por kilómetro</title>
+<meta name="description" content="Calculadora gratuita del coste real por kilómetro y por ruta de un camión frigorífico. Con tus datos; nada sale de tu navegador.">
+<!-- Regalo 1 del encargo 403 (transporte frigorífico). Archivo único: se abre sin servidor. Cálculo en calcular(); prueba: abrir con #prueba y mirar la consola. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Mono:wght@500&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--hueso:#EDE9E0;--tinta:#141210;--burdeos:#5C1A28;--oliva:#565C34;--rosa:#D9A9B0;--oro:#9A7228;--gris:#5a544d;--linea:#bdb6a8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--hueso);color:var(--tinta);font:400 16px/1.5 "Work Sans",sans-serif}
+main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.sello{width:34px;height:34px;background:var(--burdeos);color:var(--hueso);border-radius:2px;display:grid;place-items:center;font:600 15px Fraunces,serif}
+.mono{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+h1{font:600 clamp(30px,7vw,42px)/1.1 Fraunces,serif;margin:10px 0 14px}
+h2{font:600 24px/1.2 Fraunces,serif;margin:0 0 6px}
+p.sub{margin-bottom:8px}
+section{border-top:1px solid var(--tinta);padding:24px 0 8px;margin-top:24px}
+.ayuda{font-size:14px;color:var(--gris);margin-bottom:16px}
+label{display:block;margin:14px 0 0;font-weight:600;font-size:15px}
+label small{display:block;font-weight:400;font-size:13px;color:var(--gris);margin-top:2px}
+.campo{display:flex;align-items:center;border:1px solid var(--tinta);border-radius:2px;background:#fff;margin-top:6px;min-height:48px}
+.campo input{flex:1;border:0;background:transparent;font:500 17px "IBM Plex Mono",monospace;padding:12px;min-width:0;color:var(--tinta)}
+.campo input:focus{outline:2px solid var(--burdeos);outline-offset:-2px}
+.campo span{font:500 13px "IBM Plex Mono",monospace;padding:0 12px;color:var(--gris);white-space:nowrap}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+@media(max-width:520px){.dos{grid-template-columns:1fr}}
+.falta{border-left:2px solid var(--burdeos);padding:6px 0 6px 12px;font-size:14px;margin:18px 0}
+.cifra{font:600 clamp(40px,10vw,56px)/1 Fraunces,serif;color:var(--burdeos);margin:8px 0 4px}
+.cifra-t{font:600 20px/1.2 Fraunces,serif;margin-bottom:16px}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+@media(max-width:520px){.res{grid-template-columns:1fr}}
+.caja{border:1px solid var(--tinta);border-radius:2px;padding:14px;background:#fff}
+.caja b{display:block;font:600 26px Fraunces,serif;margin-top:4px}
+.barra{margin:10px 0}
+.barra .l{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;gap:8px}
+.barra .l b{font:500 13px "IBM Plex Mono",monospace;white-space:nowrap}
+.barra .t{height:6px;background:#d6d0c4}
+.barra .t i{display:block;height:6px;background:var(--oliva)}
+.barra.max .t i{background:var(--burdeos)}
+.rojo{color:var(--burdeos)}
+.btn{display:block;width:100%;min-height:48px;background:var(--burdeos);color:var(--hueso);text-align:center;font:600 16px "Work Sans",sans-serif;padding:14px;border:0;border-radius:2px;text-decoration:none;cursor:pointer;margin-top:12px}
+.btn2{background:transparent;color:var(--tinta);border:1px solid var(--tinta)}
+.peq{font-size:12.5px;line-height:1.45;color:var(--gris);margin-top:10px}
+footer{border-top:1px solid var(--tinta);margin-top:40px;padding-top:16px;font-size:13px;color:var(--gris)}
+@media print{
+  body{background:#fff}
+  .campo,.caja{background:#fff}
+  .noimp{display:none!important}
+  section{break-inside:avoid}
+  main{max-width:none;padding:0}
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><span class="sello">AG</span><span class="mono">IA para empresas · transporte</span></div>
+  <p class="mono" style="color:var(--oliva)">Calculadora · 10 minutos con tus números</p>
+  <h1>Lo que de verdad te cuesta cada kilómetro</h1>
+  <p class="sub">Mete los datos de un camión tipo de tu flota y ve su coste por kilómetro, por kilómetro cargado y por día. Abajo, lo que te deja (o te quita) una ruta concreta.</p>
+  <p class="peq">Nada sale de tu navegador: no se guarda ni se envía ningún dato. Si no sabes una cifra, pon la de tu último año; mejor aproximada que vacía.</p>
+
+  <section>
+    <p class="mono" style="color:var(--oliva)">01 · El camión en un año</p>
+    <h2>Cuánto trabaja</h2>
+    <div class="dos">
+      <label for="km">Kilómetros al año<small>Todos, cargado y en vacío</small></label>
+      <label for="vacio">Kilómetros en vacío<small>Referencia del sector: 15-25 % en internacional frigorífico (orientativo)</small></label>
+    </div>
+    <div class="dos">
+      <div class="campo"><input id="km" inputmode="decimal" autocomplete="off"><span>km</span></div>
+      <div class="campo"><input id="vacio" inputmode="decimal" autocomplete="off"><span>%</span></div>
+    </div>
+    <div class="dos">
+      <label for="dias">Días de trabajo al año<small>Los que el camión está en ruta o cargando</small></label>
+      <label for="horas">Horas de trabajo al día<small>Conducción, carga, descarga y esperas</small></label>
+    </div>
+    <div class="dos">
+      <div class="campo"><input id="dias" inputmode="decimal" autocomplete="off"><span>días</span></div>
+      <div class="campo"><input id="horas" inputmode="decimal" autocomplete="off"><span>h</span></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="mono" style="color:var(--oliva)">02 · Lo que cambia con los kilómetros</p>
+    <h2>Gasoil y desgaste</h2>
+    <div class="dos">
+      <label for="consumo">Consumo<small>Referencia del sector: 30-35 l/100 km con el frío (orientativo)</small></label>
+      <label for="precio">Precio del gasóleo<small>Lo que pagas de verdad, ya descontada la devolución del gasóleo profesional</small></label>
+    </div>
+    <div class="dos">
+      <div class="campo"><input id="consumo" inputmode="decimal" autocomplete="off"><span>l/100 km</span></div>
+      <div class="campo"><input id="precio" inputmode="decimal" autocomplete="off"><span>€/l</span></div>
+    </div>
+    <label for="frio">Gasóleo del equipo de frío<small>Solo si lo llevas aparte del consumo de arriba; si no, déjalo en blanco</small></label>
+    <div class="campo"><input id="frio" inputmode="decimal" autocomplete="off"><span>€/año</span></div>
+    <label for="manten">Mantenimiento, reparaciones y neumáticos<small>Camión, semirremolque y equipo de frío, incluidas las averías en ruta</small></label>
+    <div class="campo"><input id="manten" inputmode="decimal" autocomplete="off"><span>€/año</span></div>
+    <label for="peajes">Peajes<small>Todos los países, con el recargo por CO2 de Alemania</small></label>
+    <div class="campo"><input id="peajes" inputmode="decimal" autocomplete="off"><span>€/año</span></div>
+  </section>
+
+  <section>
+    <p class="mono" style="color:var(--oliva)">03 · Lo que pagas aunque el camión no ruede</p>
+    <h2>Conductor, camión y estructura</h2>
+    <label for="conductor">Conductor<small>Sueldo bruto más la Seguridad Social de la empresa (sin dietas)</small></label>
+    <div class="campo"><input id="conductor" inputmode="decimal" autocomplete="off"><span>€/año</span></div>
+    <label for="dietas">Dietas y pernoctas del conductor</label>
+    <div class="campo"><input id="dietas" inputmode="decimal" autocomplete="off"><span>€/año</span></div>
+    <label for="vehiculo">Camión y semirremolque frigorífico<small>Amortización o cuota de renting o leasing, con sus intereses</small></label>
+    <div class="campo"><input id="vehiculo" inputmode="decimal" autocomplete="off"><span>€/año</span></div>
+    <label for="seguros">Seguros<small>Del vehículo y de la mercancía</small></label>
+    <div class="campo"><input id="seguros" inputmode="decimal" autocomplete="off"><span>€/año</span></div>
+    <label for="tasas">Impuestos, ITV, ATP, tacógrafo y licencias</label>
+    <div class="campo"><input id="tasas" inputmode="decimal" autocomplete="off"><span>€/año</span></div>
+    <label for="estructura">Su parte de la oficina<small>Tráfico, administración, alquiler, programas y gerencia, divididos entre los camiones</small></label>
+    <div class="campo"><input id="estructura" inputmode="decimal" autocomplete="off"><span>€/año</span></div>
+  </section>
+
+  <section id="resultado" aria-live="polite">
+    <p class="mono" style="color:var(--burdeos)">Tu cuenta</p>
+    <div id="faltaCamion" class="falta">Rellena los kilómetros al año y los días de trabajo para ver la cuenta. Lo que dejes en blanco cuenta como 0.</div>
+    <div id="cuentaCamion" hidden>
+      <p class="cifra" id="rKm">–</p>
+      <p class="cifra-t">cuesta cada kilómetro que hace el camión</p>
+      <div class="res">
+        <div class="caja"><span class="mono">Por kilómetro cargado</span><b id="rKmCargado">–</b><span class="peq">Los km en vacío también los paga la carga.</span></div>
+        <div class="caja"><span class="mono">Al año, por camión</span><b id="rTotal">–</b></div>
+        <div class="caja"><span class="mono">Por día de trabajo</span><b id="rDia">–</b><span class="peq">Solo lo fijo: conductor, camión, seguros, oficina y dietas.</span></div>
+        <div class="caja"><span class="mono">Por hora de camión parado</span><b id="rHora">–</b><span class="peq">Lo que te cuesta cada hora de espera en un muelle.</span></div>
+      </div>
+      <div id="barras"></div>
+      <p class="peq">Coste por km = todo el coste del año ÷ todos los km. Por km cargado = el mismo coste ÷ los km con carga. Por día = lo fijo ÷ días de trabajo. Por hora = lo fijo ÷ (días × horas al día).</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="mono" style="color:var(--oliva)">04 · Una ruta concreta</p>
+    <h2>¿Qué te deja esta ruta?</h2>
+    <p class="ayuda">Una rotación entera: la ida y la vuelta, cargada o en vacío. Usa la cuenta del camión de arriba.</p>
+    <div class="dos">
+      <label for="kmIda">Kilómetros de ida</label>
+      <label for="kmVuelta">Kilómetros de vuelta</label>
+    </div>
+    <div class="dos">
+      <div class="campo"><input id="kmIda" inputmode="decimal" autocomplete="off"><span>km</span></div>
+      <div class="campo"><input id="kmVuelta" inputmode="decimal" autocomplete="off"><span>km</span></div>
+    </div>
+    <div class="dos">
+      <label for="diasRuta">Días que ocupa la rotación<small>Desde que sale hasta que puede cargar otra vez</small></label>
+      <label for="peajesRuta">Peajes de esta ruta<small>Ida y vuelta</small></label>
+    </div>
+    <div class="dos">
+      <div class="campo"><input id="diasRuta" inputmode="decimal" autocomplete="off"><span>días</span></div>
+      <div class="campo"><input id="peajesRuta" inputmode="decimal" autocomplete="off"><span>€</span></div>
+    </div>
+    <div class="dos">
+      <label for="cobroIda">Lo que cobras por la ida</label>
+      <label for="cobroVuelta">Lo que cobras por la vuelta<small>0 si vuelve en vacío</small></label>
+    </div>
+    <div class="dos">
+      <div class="campo"><input id="cobroIda" inputmode="decimal" autocomplete="off"><span>€</span></div>
+      <div class="campo"><input id="cobroVuelta" inputmode="decimal" autocomplete="off"><span>€</span></div>
+    </div>
+    <div id="faltaRuta" class="falta">Primero la cuenta del camión; luego los kilómetros, los días y lo que cobras.</div>
+    <div id="cuentaRuta" hidden>
+      <p class="cifra" id="rMargen">–</p>
+      <p class="cifra-t" id="rMargenT">te deja esta rotación</p>
+      <div class="res">
+        <div class="caja"><span class="mono">Te cuesta</span><b id="rCosteRuta">–</b></div>
+        <div class="caja"><span class="mono">Cobras</span><b id="rCobroRuta">–</b></div>
+        <div class="caja"><span class="mono">Margen sobre lo cobrado</span><b id="rMargenPct">–</b></div>
+        <div class="caja"><span class="mono">Precio mínimo para no perder</span><b id="rMinimo">–</b></div>
+      </div>
+      <p class="peq">Coste de la ruta = km de ida y vuelta × (gasoil + desgaste por km) + días × lo fijo por día + peajes de la ruta. No incluye intereses por cobrar tarde: eso lo mide la calculadora del margen por cliente.</p>
+    </div>
+  </section>
+
+  <section class="noimp">
+    <a class="btn" id="aMargen" href="/regalos/margen-por-cliente/">Lleva estos costes a la calculadora del margen por cliente</a>
+    <button class="btn btn2" type="button" onclick="window.print()">Imprimir o guardar en PDF</button>
+    <p class="peq" style="margin-top:20px">¿Quieres mirar estos números con alguien que conoce el sector? En el Diagnóstico 360º, gratuito, vemos dónde se va el margen de tu empresa y qué parte se puede recuperar con IA.</p>
+    <a class="btn btn2" href="https://docs.google.com/forms/d/e/1FAIpQLSd7LJzN3R7xlhTs985ao5KVqieJXNlXOk1srVrcomaGP_C2lA/viewform" rel="noopener">Reservar mi Diagnóstico 360º</a>
+  </section>
+
+  <footer>
+    <p><b>Almudena Gázquez</b> · IA para empresas · almudenagazquez.com · ag@almudenagazquez.com · 613 86 59 25</p>
+    <p class="peq">Las referencias del sector son orientativas (estudio del sector frigorífico del sureste, octubre de 2026). Para comparar con una fuente oficial, el Observatorio de costes del transporte de mercancías por carretera del Ministerio de Transportes publica el coste de un vehículo articulado frigorífico. El resultado depende de los datos que metas.</p>
+  </footer>
+</main>
+<script>
+const CAMPOS = ['km','vacio','dias','horas','consumo','precio','frio','manten','peajes','conductor','dietas','vehiculo','seguros','tasas','estructura','kmIda','kmVuelta','diasRuta','peajesRuta','cobroIda','cobroVuelta'];
+// Acepta 1,35 · 1.35 · 1.000 · 120.000 · 120000 (el punto con 3 cifras detrás es de miles).
+const num = v => { let s = String(v).replace(/\s|€|%/g,''); if (s.includes(',')) s = s.replace(/\./g,'').replace(',','.'); else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g,''); const n = parseFloat(s); return isFinite(n) && n >= 0 ? n : 0; };
+const eur = (n, d = 0) => n.toLocaleString('es-ES', {style:'currency', currency:'EUR', minimumFractionDigits:d, maximumFractionDigits:d});
+
+// Cálculo puro: d = objeto con los campos en número. Devuelve null si falta lo imprescindible.
+function calcular(d) {
+  if (!(d.km > 0 && d.dias > 0)) return null;
+  const gasoil = d.km * d.consumo / 100 * d.precio + d.frio;
+  const variable = gasoil + d.manten + d.peajes;
+  const fijo = d.conductor + d.dietas + d.vehiculo + d.seguros + d.tasas + d.estructura;
+  const total = variable + fijo;
+  const kmCargados = d.km * (1 - Math.min(d.vacio, 99) / 100);
+  const r = {
+    total, porKm: total / d.km, porKmCargado: total / kmCargados,
+    porDia: fijo / d.dias, porHora: d.horas > 0 ? fijo / (d.dias * d.horas) : null,
+    variableKmSinPeajes: (gasoil + d.manten) / d.km,
+    partes: [['Gasoil', gasoil], ['Conductor y dietas', d.conductor + d.dietas], ['Camión y semirremolque', d.vehiculo],
+             ['Mantenimiento y neumáticos', d.manten], ['Peajes', d.peajes], ['Seguros, impuestos y licencias', d.seguros + d.tasas], ['Oficina', d.estructura]]
+  };
+  const kmRuta = d.kmIda + d.kmVuelta, cobro = d.cobroIda + d.cobroVuelta;
+  if (kmRuta > 0 && d.diasRuta > 0 && cobro > 0) {
+    const fijoRuta = d.diasRuta * r.porDia;
+    const coste = kmRuta * r.variableKmSinPeajes + fijoRuta + d.peajesRuta;
+    r.ruta = {coste, cobro, margen: cobro - coste, pct: (cobro - coste) / cobro};
+  }
+  return r;
+}
+
+function leer() { const d = {}; CAMPOS.forEach(c => d[c] = num(document.getElementById(c).value)); return d; }
+
+function pintar() {
+  const d = leer(), r = calcular(d);
+  try { localStorage.setItem('ag-coste-km', JSON.stringify(Object.fromEntries(CAMPOS.map(c => [c, document.getElementById(c).value])))); } catch (e) {}
+  document.getElementById('faltaCamion').hidden = !!r;
+  document.getElementById('cuentaCamion').hidden = !r;
+  document.getElementById('cuentaRuta').hidden = !(r && r.ruta);
+  document.getElementById('faltaRuta').hidden = !!(r && r.ruta);
+  if (!r) return;
+  document.getElementById('rKm').textContent = eur(r.porKm, 2);
+  document.getElementById('rKmCargado').textContent = eur(r.porKmCargado, 2);
+  document.getElementById('rTotal').textContent = eur(r.total);
+  document.getElementById('rDia').textContent = eur(r.porDia);
+  document.getElementById('rHora').textContent = r.porHora === null ? 'Pon las horas al día' : eur(r.porHora, 2);
+  const max = Math.max(...r.partes.map(p => p[1]));
+  document.getElementById('barras').innerHTML = r.partes.filter(p => p[1] > 0).sort((a, b) => b[1] - a[1]).map(p =>
+    `<div class="barra${p[1] === max ? ' max' : ''}"><div class="l"><span>${p[0]}</span><b>${eur(p[1])} · ${Math.round(p[1] / r.total * 100)} %</b></div><div class="t"><i style="width:${p[1] / max * 100}%"></i></div></div>`).join('');
+  document.getElementById('aMargen').href = '/regalos/margen-por-cliente/?km=' + r.porKm.toFixed(2) + (r.porHora ? '&hora=' + r.porHora.toFixed(2) : '');
+  if (r.ruta) {
+    const m = r.ruta;
+    document.getElementById('rMargen').textContent = eur(m.margen);
+    document.getElementById('rMargen').classList.toggle('rojo', m.margen < 0);
+    document.getElementById('rMargenT').textContent = m.margen < 0 ? 'pierdes con esta rotación' : 'te deja esta rotación';
+    document.getElementById('rCosteRuta').textContent = eur(m.coste);
+    document.getElementById('rCobroRuta').textContent = eur(m.cobro);
+    document.getElementById('rMargenPct').textContent = (m.pct * 100).toLocaleString('es-ES', {maximumFractionDigits:1}) + ' %';
+    document.getElementById('rMinimo').textContent = eur(Math.ceil(m.coste));
+  }
+}
+
+try { const g = JSON.parse(localStorage.getItem('ag-coste-km') || '{}'); CAMPOS.forEach(c => { if (g[c]) document.getElementById(c).value = g[c]; }); } catch (e) {}
+CAMPOS.forEach(c => document.getElementById(c).addEventListener('input', pintar));
+pintar();
+
+if (location.hash === '#prueba') {
+  const base = Object.fromEntries(CAMPOS.map(c => [c, 0]));
+  const r = calcular({...base, km:100000, vacio:20, dias:200, horas:10, consumo:30, precio:1, conductor:40000, vehiculo:20000,
+                     kmIda:1000, kmVuelta:1000, diasRuta:3, cobroIda:2000, cobroVuelta:0});
+  console.assert(r.total === 90000, 'total', r.total);            // 30.000 gasoil + 60.000 fijo
+  console.assert(r.porKm === 0.9, 'por km', r.porKm);
+  console.assert(Math.abs(r.porKmCargado - 1.125) < 1e-9, 'por km cargado');
+  console.assert(r.porDia === 300 && r.porHora === 30, 'día y hora');
+  console.assert(r.ruta.coste === 2000 * 0.3 + 900 && r.ruta.margen === 500, 'ruta', r.ruta);
+  console.assert(calcular({...base, km:0, dias:200}) === null, 'sin km');
+  console.assert(num('1,35') === 1.35 && num('1.35') === 1.35 && num('1.000') === 1000 && num('120.000') === 120000 && num('') === 0, 'num');
+  console.log('prueba coste-km: hecha');
+}
+</script>
+</body>
+</html>
